@@ -65,7 +65,7 @@ export default function Quizzes() {
                                     <div>
                                         <a
                                             className="wd-assignment-link"
-                                            // href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                                            href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`}
                                             style={{
                                                 color: "#212529",
                                                 fontWeight: "bold",
@@ -118,7 +118,9 @@ export default function Quizzes() {
                                     </div>
                                     <div className="ms-auto d-flex align-items-center">
                                         <GreenCheckmark />
-                                        <QuizContextDropdown />
+                                        <QuizContextDropdown 
+                                            qid={quiz._id}
+                                        />
                                     </div>
                                 </li>
                             );

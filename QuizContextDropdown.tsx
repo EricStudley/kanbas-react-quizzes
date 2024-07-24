@@ -1,6 +1,18 @@
 import { IoMdMore } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-export default function QuizContextDropdown() {
+import * as client from "./client";
+import { deleteQuiz } from "./reducer";
+
+export default function QuizContextDropdown({ qid }: { qid: string }) {
+    const dispatch = useDispatch();
+    const { cid } = useParams();
+    const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    const removeQuiz = async (qid: string) => {
+        const status = await client.deleteQuiz(qid);
+        dispatch(deleteQuiz(qid));
+    };
     return (
         <div className="dropdown d-inline me-1 float-end">
             <button
@@ -14,30 +26,34 @@ export default function QuizContextDropdown() {
             <ul className="dropdown-menu">
                 <li>
                     <a
-                        id="wd-publish-all-modules-and-items-btn"
+                        id="wd-edit-quiz"
                         className="dropdown-item"
-                        href="#"
+                        href={`#/Kanbas/Courses/${cid}/Quizzes/${qid}`}
                     >
                         Edit
                     </a>
                 </li>
                 <li>
-                    <a id="wd-delete-quiz" className="dropdown-item" href="#">
+                    <a
+                        id="wd-delete-quiz"
+                        className="dropdown-item"
+                        onClick={() => removeQuiz(qid)}
+                    >
                         Delete
                     </a>
                 </li>
                 <li>
-                    <a id="wd-publish-quiz" className="dropdown-item" href="#">
+                    <a id="wd-publish-quiz" className="dropdown-item">
                         Publish
                     </a>
                 </li>
                 <li>
-                    <a id="wd-copy-quiz" className="dropdown-item" href="#">
+                    <a id="wd-copy-quiz" className="dropdown-item">
                         Copy
                     </a>
                 </li>
                 <li>
-                    <a id="wd-sort-quiz" className="dropdown-item" href="#">
+                    <a id="wd-sort-quiz" className="dropdown-item">
                         Sort
                     </a>
                 </li>
