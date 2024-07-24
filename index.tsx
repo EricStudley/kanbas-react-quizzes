@@ -4,47 +4,27 @@ import GreenCheckmark from "../../Components/GreenCheckmark";
 
 import { IoCaretDownSharp } from "react-icons/io5";
 import { RxRocket } from "react-icons/rx";
+
 import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import * as client from "./client";
+import { setQuizzes } from "./reducer";
 
 import "./index.css";
 
 export default function Quizzes() {
+    const dispatch = useDispatch();
     const { cid } = useParams();
-    const quizzes = [
-        {
-            _id: "1",
-            name: "Q1 - HTML",
-            available: "2024-03-22T17:00:00.000Z",
-            due: "2024-09-23T17:00:00.000Z",
-            points: 32,
-            questions: 11,
-        },
-        {
-            _id: "2",
-            name: "Q2 - CSS",
-            available: "2023-09-22T17:00:00.000Z",
-            due: "2023-09-23T17:00:00.000Z",
-            points: 32,
-            questions: 11,
-        },
-        {
-            _id: "3",
-            name: "Q3 - JavaScript",
-            available: "2024-09-22T17:00:00.000Z",
-            due: "2024-09-23T17:00:00.000Z",
-            points: 32,
-            questions: 11,
-        },
-        {
-            _id: "4",
-            name: "Q4 - React",
-            available: "2024-09-22T17:00:00.000Z",
-            due: "2024-09-23T17:00:00.000Z",
-            points: 32,
-            questions: 11,
-        },
-    ];
-
+    const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    const fetchQuizzes = async () => {
+        const quizzes = await client.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+    };
+    useEffect(() => {
+        fetchQuizzes();
+    }, []);
     return (
         <div id="wd-quizzes">
             <br />
@@ -54,18 +34,25 @@ export default function Quizzes() {
                 <li className="wd-quizzes list-group-item p-0 mb-5 fs-5 border-gray">
                     <div className="wd-title p-3 ps-2 bg-secondary">
                         <IoCaretDownSharp className="me-2 fs-6" />
-                        Assignment Quizzes
+
+                        <span
+                            style={{
+                                color: "#212529",
+                                fontWeight: "bold",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Assignment Quizzes
+                        </span>
                     </div>
                     <ul
                         id="wd-quizzes-list"
                         className="wd-quizzes-list list-group rounded-0"
                     >
-                        {quizzes.map((quiz) => {
+                        {quizzes.map((quiz: any) => {
                             const currentDate = new Date();
                             const dueDate = new Date(quiz.due);
-                            const availableDate = new Date(
-                                quiz.available
-                            );
+                            const availableDate = new Date(quiz.available);
                             const isClosed = currentDate > dueDate;
                             const isAvailable = currentDate > availableDate;
 
@@ -99,7 +86,16 @@ export default function Quizzes() {
                                                 : isAvailable
                                                 ? "Available"
                                                 : "Not Available until " +
-                                                  availableDate.toLocaleString()}
+                                                  availableDate.toLocaleString(
+                                                      "en-US",
+                                                      {
+                                                          month: "long",
+                                                          day: "numeric",
+                                                          hour: "numeric",
+                                                          minute: "numeric",
+                                                          hour12: true,
+                                                      }
+                                                  )}
                                         </span>{" "}
                                         |{" "}
                                         <span
@@ -110,7 +106,15 @@ export default function Quizzes() {
                                         >
                                             Due
                                         </span>{" "}
-                                        {dueDate.toLocaleString()} | 32 pts | 11 Questions
+                                        {dueDate.toLocaleString("en-US", {
+                                            month: "long",
+                                            day: "numeric",
+                                            hour: "numeric",
+                                            minute: "numeric",
+                                            hour12: true,
+                                        })}{" "}
+                                        | {quiz.points} pts | {quiz.questions}{" "}
+                                        Questions
                                     </div>
                                     <div className="ms-auto d-flex align-items-center">
                                         <GreenCheckmark />
