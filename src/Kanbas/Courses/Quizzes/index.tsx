@@ -7,9 +7,10 @@ import { RxRocket } from "react-icons/rx";
 
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import * as client from "./client";
+import * as accountClient from "../../Account/client";
 import { setQuizzes } from "./reducer";
 
 import "./index.css";
@@ -17,18 +18,24 @@ import "./index.css";
 export default function Quizzes() {
     const dispatch = useDispatch();
     const { cid } = useParams();
+    const [role, setRole] = useState("");
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const fetchQuizzes = async () => {
         const quizzes = await client.findQuizzesForCourse(cid as string);
         dispatch(setQuizzes(quizzes));
     };
+    const fetchRole = async () => {
+        const account = await accountClient.profile();
+        setRole(account.role);
+    };
     useEffect(() => {
         fetchQuizzes();
+        fetchRole();
     }, []);
     return (
         <div id="wd-quizzes">
             <br />
-            <QuizzesControls />
+            <QuizzesControls student={role === "STUDENT"} />
             <hr />
             <ul id="wd-quizzes" className="list-group rounded-0">
                 <li className="wd-quizzes list-group-item p-0 mb-5 fs-5 border-gray">
@@ -116,12 +123,14 @@ export default function Quizzes() {
                                         | {quiz.points} pts | {quiz.questions}{" "}
                                         Questions
                                     </div>
-                                    <div className="ms-auto d-flex align-items-center">
-                                        <GreenCheckmark />
-                                        <QuizContextDropdown 
-                                            qid={quiz._id}
-                                        />
-                                    </div>
+                                    {role !== "STUDENT" && (
+                                        <div className="ms-auto d-flex align-items-center">
+                                            <GreenCheckmark />
+                                            <QuizContextDropdown
+                                                qid={quiz._id}
+                                            />
+                                        </div>
+                                    )}
                                 </li>
                             );
                         })}
