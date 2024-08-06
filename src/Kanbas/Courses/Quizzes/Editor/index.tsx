@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateQuiz, addQuiz } from "../reducer";
 import * as client from "../client";
+import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 
 export default function QuizEditor() {
@@ -114,11 +115,9 @@ export default function QuizEditor() {
                     </a>
                 </li>
             </ul>
-
             {activeTab === "details" && (
                 <div className="tab-content mt-3">
                     <div className="mb-3">
-                        <label>Title</label>
                         <input
                             name="name"
                             type="text"
@@ -128,14 +127,14 @@ export default function QuizEditor() {
                         />
                     </div>
                     <div className="mb-3">
-                        <label>Description</label>
+                        <label>Quiz Instructions:</label>
                         <ReactQuill
                             value={quiz.description}
                             onChange={handleDescriptionChange}
-                            className="form-control"
+                            className="border-0 mt-2"
                         />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-6">
                         <label>Quiz Type</label>
                         <select
                             name="quizType"

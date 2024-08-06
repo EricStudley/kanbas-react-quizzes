@@ -58,8 +58,8 @@ export default function Quizzes() {
                     >
                         {quizzes.map((quiz: any) => {
                             const currentDate = new Date();
-                            const dueDate = new Date(quiz.due);
-                            const availableDate = new Date(quiz.available);
+                            const dueDate = new Date(quiz.dueDate);
+                            const availableDate = new Date(quiz.availableDate);
                             const isClosed = currentDate > dueDate;
                             const isAvailable = currentDate > availableDate;
 
