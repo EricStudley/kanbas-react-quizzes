@@ -19,7 +19,7 @@ export default function QuizzesControls({ student }: { student: boolean }) {
             </div>
             {!student && (
                 <div>
-                    <Link to={`/Kanbas/Courses/${cid}/Quizzes/New`}>
+                    <Link to={`/Kanbas/Courses/${cid}/Quizzes/New/edit`}>
                         <button
                             id="wd-add-module-btn"
                             className="btn btn-lg btn-danger me-1"

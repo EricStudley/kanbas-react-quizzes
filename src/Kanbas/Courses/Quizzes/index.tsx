@@ -1,5 +1,5 @@
 import QuizzesControls from "./QuizzesControls";
-import QuizContextDropdown from "./QuizContextDropdown";
+import QuizContextDropdown from "./QuizContextMenu";
 import GreenCheckmark from "../../Components/GreenCheckmark";
 
 import { IoCaretDownSharp } from "react-icons/io5";

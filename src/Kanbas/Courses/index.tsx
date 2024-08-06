@@ -3,7 +3,7 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentsEditor from "./Assignments/Editor";
-import QuizzesEditor from "./Quizzes/Editor";
+import QuizEditor from "./Quizzes/Editor";
 import Quizzes from "./Quizzes";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import { FaAlignJustify } from "react-icons/fa6";
@@ -12,6 +12,7 @@ import PeopleTable from "./People/Table";
 import * as accountClient from "../Account/client";
 import StudentQuiz from "./Quizzes/StudentQuiz";
 import { useEffect, useState } from "react";
+import QuizDetails from "./Quizzes/QuizDetails";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
@@ -49,7 +50,17 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route path="Quizzes" element={<Quizzes />} />
                         <Route
                             path="Quizzes/:qid"
-                            element={ role === "STUDENT" ? <StudentQuiz /> : <QuizzesEditor />}
+                            element={
+                                role === "STUDENT" ? (
+                                    <StudentQuiz />
+                                ) : (
+                                    <QuizDetails />
+                                )
+                            }
+                        />
+                        <Route
+                            path="Quizzes/:qid/edit"
+                            element={<QuizEditor />}
                         />
                         <Route path="Grades" element={<Grades />} />
                         <Route path="People" element={<PeopleTable />} />

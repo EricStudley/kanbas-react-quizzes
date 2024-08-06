@@ -36,6 +36,15 @@ export default function Signup() {
                 className="wd-password form-control mb-2"
                 placeholder="password"
             />
+            <select
+                defaultValue={user.role}
+                onChange={(e) => setUser({ ...user, role: e.target.value })}
+                className="form-select wd-edit-role  mb-2"
+            >
+                <option value="STUDENT">Students</option>
+                <option value="TA">Assistants</option>
+                <option value="FACULTY">Faculty</option>
+            </select>
             <button
                 onClick={signup}
                 className="wd-signup-btn btn btn-primary mb-2"
