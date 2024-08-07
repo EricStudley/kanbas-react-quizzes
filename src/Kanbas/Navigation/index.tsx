@@ -26,7 +26,6 @@ export default function KanbasNavigation() {
         { label: "History", path: "/Kanbas/History", icon: SlClock },
         { label: "Studio", path: "/Kanbas/Studio", icon: GrMultimedia },
         { label: "Commons", path: "/Kanbas/Commons", icon: FaShareSquare },
-        { label: "Labs", path: "/Labs", icon: LiaCogSolid },
         { label: "Help", path: "/Kanbas/Help", icon: TfiHelpAlt },
     ];
 

@@ -9,23 +9,16 @@ import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import { FaAlignJustify } from "react-icons/fa6";
 import Grades from "./Grades";
 import PeopleTable from "./People/Table";
-import * as accountClient from "../Account/client";
 import StudentQuiz from "./Quizzes/StudentQuiz";
-import { useEffect, useState } from "react";
 import QuizDetails from "./Quizzes/QuizDetails";
+import { useSelector } from "react-redux";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
-    const [role, setRole] = useState("");
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const isStudent = currentUser.role === "STUDENT";
     const course = courses.find((course) => course._id === cid);
     const { pathname } = useLocation();
-    const fetchRole = async () => {
-        const account = await accountClient.profile();
-        setRole(account.role);
-    };
-    useEffect(() => {
-        fetchRole();
-    }, []);
     return (
         <div id="wd-courses">
             <h2 className="text-danger">
@@ -51,11 +44,7 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route
                             path="Quizzes/:qid"
                             element={
-                                role === "STUDENT" ? (
-                                    <StudentQuiz />
-                                ) : (
-                                    <QuizDetails />
-                                )
+                                isStudent ? <StudentQuiz /> : <QuizDetails />
                             }
                         />
                         <Route
