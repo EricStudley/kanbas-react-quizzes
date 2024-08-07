@@ -7,11 +7,11 @@ import * as client from "../client";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 
-export default function QuizEditor() {
+const QuizEditor: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState("details");
-    const { qid, cid } = useParams();
+    const { qid, cid } = useParams<{ qid: string, cid: string }>();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const [quiz, setQuiz] = useState<any>({
         name: "New Quiz",
@@ -37,14 +37,17 @@ export default function QuizEditor() {
         availableDate: "",
         untilDate: "",
     });
+
     const saveQuiz = async (quiz: any) => {
         const status = await client.updateQuiz(quiz);
         dispatch(updateQuiz(quiz));
     };
+
     const createQuiz = async (quiz: any) => {
         const newQuiz = await client.createQuiz(cid as string, quiz);
         dispatch(addQuiz(newQuiz));
     };
+
     const saveOrUpdateQuiz = () => {
         if (qid === "New") {
             createQuiz(quiz);
@@ -53,6 +56,7 @@ export default function QuizEditor() {
         }
         navigate(`/Kanbas/Courses/${cid}/Quizzes`);
     };
+
     const saveAndPublishQuiz = () => {
         if (qid === "New") {
             createQuiz({ ...quiz, published: true });
@@ -61,6 +65,7 @@ export default function QuizEditor() {
         }
         navigate(`/Kanbas/Courses/${cid}/Quizzes`);
     };
+
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
         setQuiz({
@@ -68,18 +73,21 @@ export default function QuizEditor() {
             [name]: type === "checkbox" ? checked : value,
         });
     };
+
     const handleDescriptionChange = (value: string) => {
         setQuiz({
             ...quiz,
             description: value,
         });
     };
+
     useEffect(() => {
         if (qid !== "New") {
             const q = quizzes.find((q: any) => q._id === qid);
             setQuiz(q);
         }
     }, [qid]);
+
     return (
         <div id="wd-quiz-details">
             <h2>Quiz Details</h2>
@@ -326,4 +334,6 @@ export default function QuizEditor() {
             )}
         </div>
     );
-}
+};
+
+export default QuizEditor;

@@ -1,3 +1,13 @@
+export interface Question {
+    id: number;
+    title: string;
+    text: string;
+    type: string;
+    points: number;
+    choices: string[];
+    correctAnswerIndex: number;
+}
+
 export interface Quiz {
     _id: string;
     name: string;
@@ -18,4 +28,5 @@ export interface Quiz {
     dueDate: string;
     availableDate: string;
     untilDate: string;
+    questions: Question[]; // Add this line to include questions in Quiz
 }

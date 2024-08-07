@@ -1,43 +1,72 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { title } from "process";
-const initialState = {
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Quiz, Question } from './types';
+
+interface QuizState {
+    quizzes: Quiz[];
+}
+
+const initialState: QuizState = {
     quizzes: [],
 };
+
 const quizzesSlice = createSlice({
-    name: "quizzes",
+    name: 'quizzes',
     initialState,
     reducers: {
-        setQuizzes: (state, action) => {
-            state.quizzes = action.payload;
+        setQuizzes: (state, action: PayloadAction<Quiz[]>) => {
+            state.quizzes = action.payload.map(quiz => ({
+                ...quiz,
+                questions: quiz.questions || []
+            }));
         },
-        addQuiz: (state, { payload: quiz }) => {
-            state.quizzes = [
-                ...state.quizzes,
-                { ...quiz, _id: Date.now().toString() },
-            ] as any;
+        addQuiz: (state, action: PayloadAction<Quiz>) => {
+            const newQuiz = {
+                ...action.payload,
+                questions: action.payload.questions || []
+            };
+            state.quizzes.push(newQuiz);
         },
-        deleteQuiz: (state, { payload: quizId }) => {
-            state.quizzes = state.quizzes.filter(
-                (q: any) => q._id !== quizId
-            );
+        deleteQuiz: (state, action: PayloadAction<string>) => {
+            state.quizzes = state.quizzes.filter(quiz => quiz._id !== action.payload);
         },
-        updateQuiz: (state, { payload: quiz }) => {
-            state.quizzes = state.quizzes.map((q: any) =>
-                q._id === quiz._id ? quiz : q
-            ) as any;
+        updateQuiz: (state, action: PayloadAction<Quiz>) => {
+            const index = state.quizzes.findIndex(quiz => quiz._id === action.payload._id);
+            if (index !== -1) {
+                state.quizzes[index] = {
+                    ...action.payload,
+                    questions: action.payload.questions || []
+                };
+            }
         },
-        editQuiz: (state, { payload: quizId }) => {
-            state.quizzes = state.quizzes.map((q: any) =>
-                q._id === quizId ? { ...q, editing: true } : q
-            ) as any;
+        addQuestion: (state, action: PayloadAction<{ quizId: string, question: Question }>) => {
+            const { quizId, question } = action.payload;
+            const quiz = state.quizzes.find(quiz => quiz._id === quizId);
+            if (quiz) {
+                quiz.questions = quiz.questions || [];
+                quiz.questions.push(question);
+            }
+        },
+        editQuestion: (state, action: PayloadAction<{ quizId: string, question: Question }>) => {
+            const { quizId, question } = action.payload;
+            const quiz = state.quizzes.find(quiz => quiz._id === quizId);
+            if (quiz) {
+                quiz.questions = quiz.questions || [];
+                const questionIndex = quiz.questions.findIndex(q => q.id === question.id);
+                if (questionIndex !== -1) {
+                    quiz.questions[questionIndex] = question;
+                }
+            }
+        },
+        deleteQuestion: (state, action: PayloadAction<{ quizId: string, questionId: number }>) => {
+            const { quizId, questionId } = action.payload;
+            const quiz = state.quizzes.find(quiz => quiz._id === quizId);
+            if (quiz) {
+                quiz.questions = quiz.questions || [];
+                quiz.questions = quiz.questions.filter(q => q.id !== questionId);
+            }
         },
     },
 });
-export const {
-    setQuizzes,
-    addQuiz,
-    deleteQuiz,
-    updateQuiz,
-    editQuiz,
-} = quizzesSlice.actions;
+
+export const { setQuizzes, addQuiz, deleteQuiz, updateQuiz, addQuestion, editQuestion, deleteQuestion } = quizzesSlice.actions;
 export default quizzesSlice.reducer;

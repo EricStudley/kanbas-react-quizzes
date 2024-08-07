@@ -13,6 +13,7 @@ import * as accountClient from "../Account/client";
 import StudentQuiz from "./Quizzes/StudentQuiz";
 import { useEffect, useState } from "react";
 import QuizDetails from "./Quizzes/QuizDetails";
+import QuizQuestionsEditor from "./Quizzes/QuizQuestionsEditor"; // Import the new component
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
@@ -61,6 +62,10 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route
                             path="Quizzes/:qid/edit"
                             element={<QuizEditor />}
+                        />
+                        <Route
+                            path="Quizzes/:qid/questions"
+                            element={<QuizQuestionsEditor />}
                         />
                         <Route path="Grades" element={<Grades />} />
                         <Route path="People" element={<PeopleTable />} />
