@@ -7,7 +7,8 @@ import FillInBlanksQuestionEditor from './FillInBlanksQuestionEditor';
 import { addQuestion, editQuestion, deleteQuestion, updateQuiz } from './reducer';
 import { Question, Quiz } from './types';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as client from './client';
+import './index.css'; // Import the CSS file for styling
+import * as client from "./client";
 
 const QuizQuestionsEditor: React.FC = () => {
     const { qid } = useParams<{ qid: string }>();
@@ -23,7 +24,6 @@ const QuizQuestionsEditor: React.FC = () => {
 
     useEffect(() => {
         if (qid && !quiz) {
-            // Fetch the quiz if it is not already loaded
             const fetchQuiz = async () => {
                 const fetchedQuiz = await client.findQuizByID(qid);
                 if (fetchedQuiz) {
@@ -38,7 +38,7 @@ const QuizQuestionsEditor: React.FC = () => {
 
     const handleAddQuestion = (type: string) => {
         if (!qid) return;
-        
+
         const question: Question = {
             id: Date.now(),
             title: 'New Question',
@@ -60,7 +60,7 @@ const QuizQuestionsEditor: React.FC = () => {
         const updatedQuestions = questions.map(q => q.id === id ? updatedQuestion : q);
         setQuestions(updatedQuestions);
         dispatch(editQuestion({ quizId: qid, question: updatedQuestion }));
-        setEditingQuestion(null); // Close the editor after saving
+        setEditingQuestion(null);
     };
 
     const handleDeleteQuestion = (id: number) => {
@@ -77,6 +77,12 @@ const QuizQuestionsEditor: React.FC = () => {
         const updatedQuiz: Quiz = { ...quiz, questions };
         dispatch(updateQuiz(updatedQuiz));
         navigate(`/Kanbas/Courses/${quiz.course}/Quizzes`);
+    };
+
+    const handleTypeChange = (type: string) => {
+        if (!editingQuestion) return;
+        const updatedQuestion = { ...editingQuestion, type };
+        setEditingQuestion(updatedQuestion);
     };
 
     return (
@@ -116,6 +122,7 @@ const QuizQuestionsEditor: React.FC = () => {
                             question={editingQuestion}
                             onSave={(updatedQuestion: Question) => handleEditQuestion(editingQuestion.id, updatedQuestion)}
                             onCancel={() => setEditingQuestion(null)}
+                            onTypeChange={handleTypeChange} // Pass the type change handler
                         />
                     )}
                     {editingQuestion.type === 'True/false' && (
@@ -123,6 +130,7 @@ const QuizQuestionsEditor: React.FC = () => {
                             question={editingQuestion}
                             onSave={(updatedQuestion: Question) => handleEditQuestion(editingQuestion.id, updatedQuestion)}
                             onCancel={() => setEditingQuestion(null)}
+                            onTypeChange={handleTypeChange} // Pass the type change handler
                         />
                     )}
                     {editingQuestion.type === 'Fill in the blank' && (
@@ -130,6 +138,7 @@ const QuizQuestionsEditor: React.FC = () => {
                             question={editingQuestion}
                             onSave={(updatedQuestion: Question) => handleEditQuestion(editingQuestion.id, updatedQuestion)}
                             onCancel={() => setEditingQuestion(null)}
+                            onTypeChange={handleTypeChange} // Pass the type change handler
                         />
                     )}
                 </div>
