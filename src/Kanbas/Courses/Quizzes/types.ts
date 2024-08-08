@@ -4,29 +4,36 @@ export interface Question {
     text: string;
     type: string;
     points: number;
-    choices: string[];
-    correctAnswerIndex: number;
+    multipleChoiceQuestionAnswers?: {
+        answer: string;
+        correct: boolean;
+    }[];
+    trueFalseAnswer?: boolean;
+    fillInBlankAnswers?: string[];
 }
 
 export interface Quiz {
     _id: string;
     name: string;
     description: string;
-    course: string;
     quizType: string;
+    published: boolean;
     points: number;
     assignmentGroup: string;
     shuffleAnswers: boolean;
     timeLimit: number;
     multipleAttempts: boolean;
     attempts: number;
-    showCorrectAnswers: string;
+    viewResponses: string;
+    showCorrectAnswers: boolean;
     accessCode: string;
     oneQuestionAtATime: boolean;
+    requireLockDownBrowser: boolean;
+    requiredToViewResults: boolean;
     webcamRequired: boolean;
-    lockQuestionsAfterAnswering: boolean;
-    dueDate: string;
-    availableDate: string;
-    untilDate: string;
-    questions: Question[]; // Add this line to include questions in Quiz
+    lockQuestions: boolean;
+    dueDate: Date | null;
+    availableDate: Date | null;
+    untilDate: Date | null;
+    questions: Question[];
 }

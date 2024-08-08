@@ -1,4 +1,3 @@
-// react_quizzes/src/Kanbas/Courses/Quizzes/reducer.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Quiz, Question } from './types';
 
@@ -37,13 +36,13 @@ const quizzesSlice = createSlice({
                     ...action.payload,
                     questions: action.payload.questions || []
                 };
+                console.log('Updated Quiz State:', state.quizzes[index]);
             }
         },
         addQuestion: (state, action: PayloadAction<{ quizId: string, question: Question }>) => {
             const { quizId, question } = action.payload;
             const quiz = state.quizzes.find(quiz => quiz._id === quizId);
             if (quiz) {
-                quiz.questions = quiz.questions || [];
                 quiz.questions.push(question);
             }
         },
@@ -51,10 +50,9 @@ const quizzesSlice = createSlice({
             const { quizId, question } = action.payload;
             const quiz = state.quizzes.find(quiz => quiz._id === quizId);
             if (quiz) {
-                quiz.questions = quiz.questions || [];
-                const questionIndex = quiz.questions.findIndex(q => q.id === question.id);
-                if (questionIndex !== -1) {
-                    quiz.questions[questionIndex] = question;
+                const index = quiz.questions.findIndex(q => q.id === question.id);
+                if (index !== -1) {
+                    quiz.questions[index] = question;
                 }
             }
         },
@@ -62,7 +60,6 @@ const quizzesSlice = createSlice({
             const { quizId, questionId } = action.payload;
             const quiz = state.quizzes.find(quiz => quiz._id === quizId);
             if (quiz) {
-                quiz.questions = quiz.questions || [];
                 quiz.questions = quiz.questions.filter(q => q.id !== questionId);
             }
         },

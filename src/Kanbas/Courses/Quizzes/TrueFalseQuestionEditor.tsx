@@ -12,7 +12,7 @@ interface TrueFalseQuestionEditorProps {
 }
 
 const TrueFalseQuestionEditor: React.FC<TrueFalseQuestionEditorProps> = ({ question, onSave, onCancel, onTypeChange }) => {
-  const [editedQuestion, setEditedQuestion] = useState(question);
+  const [editedQuestion, setEditedQuestion] = useState({ ...question, trueFalseAnswer: question.trueFalseAnswer || false });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,7 +24,7 @@ const TrueFalseQuestionEditor: React.FC<TrueFalseQuestionEditorProps> = ({ quest
   };
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedQuestion({ ...editedQuestion, correctAnswerIndex: parseInt(e.target.value) });
+    setEditedQuestion({ ...editedQuestion, trueFalseAnswer: e.target.value === 'true' });
   };
 
   const handleQuillChange = (value: string) => {
@@ -83,8 +83,8 @@ const TrueFalseQuestionEditor: React.FC<TrueFalseQuestionEditorProps> = ({ quest
           type="radio"
           id="true"
           name="correctAnswer"
-          value={0}
-          checked={editedQuestion.correctAnswerIndex === 0}
+          value="true"
+          checked={editedQuestion.trueFalseAnswer === true}
           onChange={handleRadioChange}
           className="form-check-input"
         />
@@ -97,8 +97,8 @@ const TrueFalseQuestionEditor: React.FC<TrueFalseQuestionEditorProps> = ({ quest
           type="radio"
           id="false"
           name="correctAnswer"
-          value={1}
-          checked={editedQuestion.correctAnswerIndex === 1}
+          value="false"
+          checked={editedQuestion.trueFalseAnswer === false}
           onChange={handleRadioChange}
           className="form-check-input"
         />

@@ -12,7 +12,7 @@ interface FillInBlanksQuestionEditorProps {
 }
 
 const FillInBlanksQuestionEditor: React.FC<FillInBlanksQuestionEditorProps> = ({ question, onSave, onCancel, onTypeChange }) => {
-  const [editedQuestion, setEditedQuestion] = useState(question);
+  const [editedQuestion, setEditedQuestion] = useState({ ...question, fillInBlankAnswers: question.fillInBlankAnswers || [] });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -28,17 +28,17 @@ const FillInBlanksQuestionEditor: React.FC<FillInBlanksQuestionEditorProps> = ({
   };
 
   const handleAnswerChange = (index: number, value: string) => {
-    const newAnswers = editedQuestion.choices.map((answer, i) => (i === index ? value : answer));
-    setEditedQuestion({ ...editedQuestion, choices: newAnswers });
+    const newAnswers = editedQuestion.fillInBlankAnswers.map((answer, i) => (i === index ? value : answer));
+    setEditedQuestion({ ...editedQuestion, fillInBlankAnswers: newAnswers });
   };
 
   const handleRemoveAnswer = (index: number) => {
-    const newAnswers = editedQuestion.choices.filter((_, i) => i !== index);
-    setEditedQuestion({ ...editedQuestion, choices: newAnswers });
+    const newAnswers = editedQuestion.fillInBlankAnswers.filter((_, i) => i !== index);
+    setEditedQuestion({ ...editedQuestion, fillInBlankAnswers: newAnswers });
   };
 
   const handleAddAnswer = () => {
-    setEditedQuestion({ ...editedQuestion, choices: [...editedQuestion.choices, ''] });
+    setEditedQuestion({ ...editedQuestion, fillInBlankAnswers: [...editedQuestion.fillInBlankAnswers, ''] });
   };
 
   return (
@@ -88,7 +88,7 @@ const FillInBlanksQuestionEditor: React.FC<FillInBlanksQuestionEditorProps> = ({
         />
       </div>
       <label>Answers:</label>
-      {editedQuestion.choices.map((answer, index) => (
+      {editedQuestion.fillInBlankAnswers.map((answer, index) => (
         <div key={index} className="input-group mb-2">
           <input
             type="text"

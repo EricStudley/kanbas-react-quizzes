@@ -20,18 +20,22 @@ export default function Quizzes() {
     const { cid } = useParams();
     const [role, setRole] = useState("");
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+
     const fetchQuizzes = async () => {
         const quizzes = await client.findQuizzesForCourse(cid as string);
         dispatch(setQuizzes(quizzes));
     };
+
     const fetchRole = async () => {
         const account = await accountClient.profile();
         setRole(account.role);
     };
+
     useEffect(() => {
         fetchQuizzes();
         fetchRole();
     }, []);
+
     return (
         <div id="wd-quizzes">
             <br />
@@ -64,7 +68,10 @@ export default function Quizzes() {
                             const isAvailable = currentDate > availableDate;
 
                             return (
-                                <li className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex align-items-center">
+                                <li
+                                    key={quiz._id} // Add a unique key to avoid the warning
+                                    className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex align-items-center"
+                                >
                                     <RxRocket
                                         className="me-4 ms-4 fs-3 "
                                         style={{ color: "green" }}
@@ -120,7 +127,7 @@ export default function Quizzes() {
                                             minute: "numeric",
                                             hour12: true,
                                         })}{" "}
-                                        | {quiz.points} pts | {quiz.questions}{" "}
+                                        | {quiz.points} pts | {quiz.questions.length}{" "}
                                         Questions
                                     </div>
                                     {role !== "STUDENT" && (

@@ -12,7 +12,11 @@ interface MultipleChoiceQuestionEditorProps {
 }
 
 const MultipleChoiceQuestionEditor: React.FC<MultipleChoiceQuestionEditorProps> = ({ question, onSave, onCancel, onTypeChange }) => {
-  const [editedQuestion, setEditedQuestion] = useState(question);
+  // Ensure multipleChoiceQuestionAnswers is initialized as an array
+  const [editedQuestion, setEditedQuestion] = useState({
+    ...question,
+    multipleChoiceQuestionAnswers: question.multipleChoiceQuestionAnswers || []
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,21 +29,22 @@ const MultipleChoiceQuestionEditor: React.FC<MultipleChoiceQuestionEditorProps> 
   };
 
   const handleChoiceChange = (index: number, value: string) => {
-    const newChoices = editedQuestion.choices.map((choice, i) => (i === index ? value : choice));
-    setEditedQuestion({ ...editedQuestion, choices: newChoices });
+    const newChoices = editedQuestion.multipleChoiceQuestionAnswers.map((choice, i) => (i === index ? { ...choice, answer: value } : choice));
+    setEditedQuestion({ ...editedQuestion, multipleChoiceQuestionAnswers: newChoices });
+  };
+
+  const handleCorrectChange = (index: number, value: boolean) => {
+    const newChoices = editedQuestion.multipleChoiceQuestionAnswers.map((choice, i) => (i === index ? { ...choice, correct: value } : choice));
+    setEditedQuestion({ ...editedQuestion, multipleChoiceQuestionAnswers: newChoices });
   };
 
   const handleRemoveChoice = (index: number) => {
-    const newChoices = editedQuestion.choices.filter((_, i) => i !== index);
-    setEditedQuestion({ ...editedQuestion, choices: newChoices });
+    const newChoices = editedQuestion.multipleChoiceQuestionAnswers.filter((_, i) => i !== index);
+    setEditedQuestion({ ...editedQuestion, multipleChoiceQuestionAnswers: newChoices });
   };
 
   const handleAddChoice = () => {
-    setEditedQuestion({ ...editedQuestion, choices: [...editedQuestion.choices, ''] });
-  };
-
-  const handleRadioChange = (index: number) => {
-    setEditedQuestion({ ...editedQuestion, correctAnswerIndex: index });
+    setEditedQuestion({ ...editedQuestion, multipleChoiceQuestionAnswers: [...editedQuestion.multipleChoiceQuestionAnswers, { answer: '', correct: false }] });
   };
 
   const handleQuillChange = (value: string) => {
@@ -92,21 +97,21 @@ const MultipleChoiceQuestionEditor: React.FC<MultipleChoiceQuestionEditorProps> 
         />
       </div>
       <label>Answers:</label>
-      {editedQuestion.choices.map((choice, index) => (
+      {editedQuestion.multipleChoiceQuestionAnswers.map((choice, index) => (
         <div key={index} className="input-group mb-2">
           <input
             type="text"
-            value={choice}
+            value={choice.answer}
             onChange={(e) => handleChoiceChange(index, e.target.value)}
             className="form-control"
             placeholder={`Possible Answer ${index + 1}`}
           />
           <button onClick={() => handleRemoveChoice(index)} className="btn btn-danger align-self-center">Remove</button>
           <input
-            type="radio"
+            type="checkbox"
             name="correctAnswer"
-            checked={editedQuestion.correctAnswerIndex === index}
-            onChange={() => handleRadioChange(index)}
+            checked={choice.correct}
+            onChange={(e) => handleCorrectChange(index, e.target.checked)}
             className="ms-2 align-self-center"
           />
         </div>

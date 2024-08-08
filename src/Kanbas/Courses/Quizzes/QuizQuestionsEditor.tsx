@@ -34,6 +34,9 @@ const QuizQuestionsEditor: React.FC = () => {
         } else if (quiz) {
             setQuestions(quiz.questions || []);
         }
+        console.log('Quiz ID:', qid);
+        console.log('Initial Quiz:', quiz);
+        console.log('Questions:', questions);
     }, [qid, quiz]);
 
     const handleAddQuestion = (type: string) => {
@@ -45,13 +48,15 @@ const QuizQuestionsEditor: React.FC = () => {
             text: '',
             type: type,
             points: 1,
-            choices: type === 'Multiple choice' ? [''] : [],
-            correctAnswerIndex: -1,
+            multipleChoiceQuestionAnswers: type === 'Multiple choice' ? [{ answer: '', correct: false }] : [],
+            trueFalseAnswer: type === 'True/false' ? false : undefined,
+            fillInBlankAnswers: type === 'Fill in the blank' ? [''] : [],
         };
         setQuestions([...questions, question]);
         dispatch(addQuestion({ quizId: qid, question }));
         setEditingQuestion(question);
         setNewQuestionType(null);
+        console.log('Added Question:', question);
     };
 
     const handleEditQuestion = (id: number, updatedQuestion: Question) => {
@@ -61,6 +66,7 @@ const QuizQuestionsEditor: React.FC = () => {
         setQuestions(updatedQuestions);
         dispatch(editQuestion({ quizId: qid, question: updatedQuestion }));
         setEditingQuestion(null);
+        console.log('Edited Question:', updatedQuestion);
     };
 
     const handleDeleteQuestion = (id: number) => {
@@ -69,12 +75,14 @@ const QuizQuestionsEditor: React.FC = () => {
         const updatedQuestions = questions.filter(q => q.id !== id);
         setQuestions(updatedQuestions);
         dispatch(deleteQuestion({ quizId: qid, questionId: id }));
+        console.log('Deleted Question ID:', id);
     };
 
     const handleSave = () => {
         if (!quiz || !qid) return;
 
         const updatedQuiz: Quiz = { ...quiz, questions };
+        console.log('Saving Quiz:', updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
         navigate(`/Kanbas/Courses/${quiz.course}/Quizzes`);
     };
@@ -83,11 +91,12 @@ const QuizQuestionsEditor: React.FC = () => {
         if (!editingQuestion) return;
         const updatedQuestion = { ...editingQuestion, type };
         setEditingQuestion(updatedQuestion);
+        console.log('Changed Question Type:', updatedQuestion);
     };
 
     return (
         <div className="quiz-questions-editor container mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="d-flex justify-content-between mb-3">
                 <h5 className="mb-0">Points: {questions?.reduce((total, q) => total + q.points, 0)}</h5>
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,7 +110,7 @@ const QuizQuestionsEditor: React.FC = () => {
                 </div>
             </div>
             <ul className="list-group mb-3">
-                {questions?.map(question => (
+                {questions?.map((question, index) => (
                     <li key={question.id} className="list-group-item d-flex justify-content-between align-items-center">
                         <span>{question.title}</span>
                         <div>
