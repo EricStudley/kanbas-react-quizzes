@@ -1,0 +1,156 @@
+User authentication:
+✅* User can sign up with username, password, and role. After sign in users are sent to the Profile.
+✅* Users can sign in with their existing username and password. After sign in users are sent to the Profile.
+✅* Users can edit their information in their Profile.
+✅* When proceeding to the Dashboard page, users can only see courses for their logged in user. At least one course must be shown.
+✅* Clicking on a course navigates to the details of that course.
+
+
+Courses Per User:
+✅* Faculty can only see courses they have created.
+✅* Faculty can create new courses, student can not.
+✅* Faculty can edit courses they have created, students can not.
+✅* Students can enroll into a course.
+✅* Students only see courses they are enrolled in.
+
+
+Quiz List screen:
+✅* The course navigation sidebar contains a Quizzes section. When clicked, the user is navigated to the Quizzes List screen.
+* The Quizzes List screen displays the quizzes for the selected course. Each course has a separate list of quizzes.
+* The Quizzes List screen is empty by default. An add quiz (+ Quiz) button is present at the top right to create a new quiz.
+✅* Clicking on the add quiz button creates a new quiz and proceeds to the Quiz Details Editor screen for the new quiz.
+* For existing quizzes on the Quizzes List screen, clicking the context menu button (3 dots) reveals the Quiz Context Menu with options: Edit, Delete, and Publish.
+    ✅Clicking Edit navigates to Quiz Details screen.
+    ✅Clicking Delete removes the quiz from the list and stays on the Quizzes List screen
+    Clicking Publish publishes the quiz, making it available to students, and the Publish option becomes Unpublish, which performs the opposite action.
+* Newly created quizzes are unpublished by default and unavailable to students. This is depicted by an Unpublished symbol 🚫.
+* Clicking the Unpublished button publishes the quiz, making it available to students. This is depicted by the Published symbol ✅.
+* Clicking the quiz title in the Quizzes List navigates to Quiz Details screen.
+* The following information is shown for each quiz in the Quizzes List:
+    ✅Availability:
+        ✅"Closed" is displayed if the current date is after quizzes Available Until Date.
+        ✅"Available" is displayed if the current date is between the Available Date and the Available Until Date.
+        ✅"Not available until <AVAILABLE DATE>" is displayed if the current date is before the Available date.
+    ✅Due date
+    ✅Points
+    ✅Number of questions
+    Score is shown if the user is a Student; only the last score received is shown.
+
+
+Quiz Details screen:
+* ✅The Quiz Details page displays a summary of the selected quiz, including the following properties:
+    ✅Quiz Type - Graded Quiz (default), Practice Quiz, Graded Survey, or Ungraded Survey.
+    ✅Points - The sum of the points of all questions in the quiz.
+    ✅Assignment Group - Quizzes (default), Exams, Assignments, or Project.
+    ✅Shuffle Answers - Yes (default) / No.
+    ✅Time Limit - 20 Minutes (default).
+    ✅Multiple Attempts - No (default) / Yes.
+    ✅How Many Attempts - 1 (default).
+    ✅Show Correct Answers - If correct answers are shown to students.
+    ✅Access Code - Passcode students need to type to access the quiz. Default is blank.
+    ✅One Question at a Time - Yes (default) / No.
+    ✅Webcam Required - No (default) / Yes.
+    ✅Lock Questions After Answering - No (default) / Yes.
+    ✅Due date - Date the assignment is due.
+    ✅Available date - Date assignment is available.
+    ✅Until date - Date assignment is available until.
+* The Preview button navigates to Quiz Preview screen.
+* ✅The Edit button navigates to Quiz Editor screen.
+
+
+Quiz Details Editor screen:
+* ✅Two tabs are present on the page: Details (default) and Questions.
+* ✅Clicking the Details tab navigates to the Quiz Details Editor screen.
+* ✅Clicking the Questions tab navigates to Quiz Questions Editor screen.
+* ✅The Quiz Details Editor screen contains forms to display and edit the following quiz properties:
+    ✅Title - Text input field
+    ✅Description - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+    ✅Quiz Type - Graded Quiz (default), Practice Quiz, Graded Survey, or Ungraded Survey dropdown.
+    ✅Points - Number input field.
+    ✅Assignment Group - Quizzes (default), Exams, Assignments, or Project dropdown.
+    ✅Shuffle Answers - Yes (default) / No, checkbox.
+    ✅Time Limit - 20 Minutes (default) number input field.
+    ✅Multiple Attempts - Yes / No (default), checkbox.
+    ✅Show Correct Answers - Yes (default) / No, checkbox.
+    ✅Access Code - Default is blank. Passcode students need to type to access the quiz. Text input field.
+    ✅One Question at a Time - Yes (default) / No, checkbox.
+    ✅Webcam Required - No (default) / Yes, checkbox.
+    ✅Lock Questions After Answering - No (default) / Yes, checkbox.
+    ✅Due date - date the assignment is due, date input.
+    ✅Available date - date assignment is available, date input.
+    ✅Until date - date assignment is available until, date input.
+* ✅Clicking the Save button saves changes and navigates back to Quiz Details screen.
+* Clicking the Save and Publish button saves & publishes quiz and navigates back to Quiz List screen.
+* ✅Clicking the Cancel button doesn’t save and navigates back to Quiz List screen.
+
+
+Quiz Questions Editor screen:
+* Displays list of questions for this quiz. List is initially empty.
+* Clicking the New Question button adds question at bottom of list. The Multiple Choice question is default.
+* New questions are displayed in edit preview mode by default.
+* Clicking the Edit button displays question in edit mode.
+* After creating a new quiz, a dropdown with the question type exists with the following options:
+    True/false,
+    Multiple choice question
+    Fill in multiple blanks question
+* Points shows sum of all the points of each question.
+* Clicking Cancel button dismisses the edits
+* Clicking Save saves the edits but does not publish the quiz
+
+
+Multiple choice Question Editor:
+* The following options are editable on the Multiple Choice Question Editor:
+    Title - Text input field.
+    Points - Number input field.
+    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+* A list of answers is displayed, and a "+Add Another Answer" button exists to add another answer.
+    Radio button selection for the correct answer.
+    Text input field for the answer itself.
+* Cancel button discards question changes.
+* Update Question button saves question changes.
+
+
+True/False Question Editor:
+* The following options are editable on the True/False Question Editor:
+    Title - Text input field.
+    Points - Number input field.
+    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+    True/false - Checkbox or radio buttons to select the correct true/false answer.
+* Cancel button discards question changes.
+* Update Question button saves question changes.
+
+
+Fill in the Blank Question Editor:
+
+* The following options are editable on the Fill in the Blank Question Editor:
+    Title - Text input field.
+    Points - Number input field.
+    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+    Answer - Text input; answers can be case insensitive.
+* Cancel button discards question changes.
+* Update Question button saves question changes.
+
+
+Quiz Preview screen:
+* Displays the quiz as students would see the quiz. 
+* All questions in quiz are displayed.
+* Each question is rendered in the format based on their type.
+* Faculty can answer the quiz.
+* When faculty submits the quiz, the answers are saved for that quiz.
+* The preview shows previous answers by faculty to the quiz.
+* The final score for the quiz is calculated.
+
+
+Quiz screen:
+* Answers to the quiz are stored per student.
+* The following data is persisted between sessions:
+    Most previous answers given to the quiz.
+    Score for the most previous attempt.
+* Correct answers are highlighted as green, or given a checkmark.
+* Incorrect answers are highlighted as red, or given an X mark.
+* Students are unable to change the answers of a quiz that has been taken previously.
+* The test can be repeated if Multiple Attempts property is true, up to the amount specified by the How Many Attempts property.
+* The How Many Attempts property determines the amount each student can take a quiz.
+* The correct answers are shown if the following are true
+    Student has made at least one attempt.
+    Student has exhausted their attempts specified by the How Many Attempts property.
