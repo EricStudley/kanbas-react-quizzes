@@ -145,8 +145,8 @@ Quiz screen:
 ✅* The following data is persisted between sessions:
     ✅Most previous answers given to the quiz.
     ✅Score for the most previous attempt.
-* Correct answers are highlighted as green, or given a checkmark.
-* Incorrect answers are highlighted as red, or given an X mark.
+✅* Correct answers are highlighted as green, or given a checkmark.
+✅* Incorrect answers are highlighted as red, or given an X mark.
 * Students are unable to change the answers of a quiz that has been taken previously.
 * The test can be repeated if Multiple Attempts property is true, up to the amount specified by the How Many Attempts property.
 * The How Many Attempts property determines the amount each student can take a quiz.

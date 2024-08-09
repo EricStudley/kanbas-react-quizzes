@@ -203,6 +203,7 @@ const QuizDisplay: React.FC = () => {
                                 setFillInTheBlankAnswer={
                                     setFillInTheBlankAnswer
                                 }
+                                resultMode={false}
                             />
                             <div className="d-flex justify-content-between mt-4">
                                 <div>

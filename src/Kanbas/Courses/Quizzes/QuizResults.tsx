@@ -126,6 +126,7 @@ export default function QuizResults() {
                         setMultipleChoiceAnswerIndex={() => {}}
                         setTrueFalseAnswer={() => {}}
                         setFillInTheBlankAnswer={() => {}}
+                        resultMode={true}
                     />
                 </div>
             ))}

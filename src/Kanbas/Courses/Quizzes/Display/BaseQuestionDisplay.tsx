@@ -16,6 +16,7 @@ interface BaseQuestionDisplayProps {
         questionId: number,
         fillInTheBlankAnswer: string
     ) => void;
+    resultMode: boolean;
 }
 
 const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
@@ -25,6 +26,7 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
     setMultipleChoiceAnswerIndex,
     setTrueFalseAnswer,
     setFillInTheBlankAnswer,
+    resultMode,
 }) => {
     const isMultipleChoice = question.type === "Multiple Choice";
     const isTrueFalse = question.type === "True/False";
@@ -40,7 +42,9 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                     question={question}
                     questionId={questionId}
                     selectedAnswer={selectedAnswer?.multipleChoiceAnswerIndex}
+                    correctAnswer={question.multipleChoices}
                     setMultipleChoiceAnswerIndex={setMultipleChoiceAnswerIndex}
+                    resultMode={resultMode}
                 />
             )}
             {isTrueFalse && (
@@ -48,7 +52,9 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                     question={question}
                     questionId={questionId}
                     selectedAnswer={selectedAnswer?.trueFalseAnswer}
+                    correctAnswer={question.trueFalseCorrect}
                     setTrueFalseAnswer={setTrueFalseAnswer}
+                    resultMode={resultMode}
                 />
             )}
             {isFillInTheBlank && (
@@ -56,7 +62,9 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                     question={question}
                     questionId={questionId}
                     selectedAnswer={selectedAnswer?.fillInTheBlankAnswer}
+                    correctAnswer={question.fillInTheBlankCorrectAnswers}
                     setFillInTheBlankAnswer={setFillInTheBlankAnswer}
+                    resultMode={resultMode}
                 />
             )}
         </div>
