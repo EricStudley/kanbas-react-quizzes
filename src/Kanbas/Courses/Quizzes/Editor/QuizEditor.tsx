@@ -206,6 +206,21 @@ export default function QuizEditor() {
         });
     }
 
+    const addAnotherFillInTheBlankAnswer = (questionIndex: number) => {
+        setQuiz({
+            ...quiz,
+            questions: quiz.questions.map((question: any, index: number) => {
+                if (index === questionIndex) {
+                    return {
+                        ...question,
+                        fillInTheBlankCorrectAnswers: [...question.fillInTheBlankCorrectAnswers, { text: "New Answer" }],
+                    };
+                }
+                return question;
+            }),
+        });
+    }
+
     const setQuestionText = (questionIndex: number, questionText: string) => {
         setQuiz({
             ...quiz,
@@ -225,7 +240,7 @@ export default function QuizEditor() {
         const newQuestion = {
             title: "New Question",
             type: "Multiple Choice",
-            question: "New Question?",
+            question: "New Question",
             points: 0,
             multipleChoices: [
                 {
@@ -236,17 +251,13 @@ export default function QuizEditor() {
                     text: "B",
                     correct: false,
                 },
-                {
-                    text: "C",
-                    correct: false,
-                },
-                {
-                    text: "D",
-                    correct: false,
-                },
             ],
             trueFalseCorrect: true,
-            fillInTheBlankCorrect: "",
+            fillInTheBlankCorrectAnswers: [
+                {
+                    text: "New Answer",
+                },
+            ],
         };
         setQuiz({
             ...quiz,
@@ -314,6 +325,7 @@ export default function QuizEditor() {
                     setMultipleChoiceAnswerText={setMultipleChoiceAnswerText}
                     addAnotherMultipleChoiceAnswer={addAnotherMultipleChoiceAnswer}
                     setQuestionTrueFalseCorrect={setQuestionTrueFalseCorrect}
+                    addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
                 />
             )}
             <button

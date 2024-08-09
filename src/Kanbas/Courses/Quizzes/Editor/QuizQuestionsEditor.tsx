@@ -16,6 +16,7 @@ export default function QuizDetailsEditor({
     setMultipleChoiceAnswerText,
     addAnotherMultipleChoiceAnswer,
     setQuestionTrueFalseCorrect,
+    addAnotherFillInTheBlankAnswer,
 }: {
     quiz: any;
     addNewQuestion: () => void;
@@ -34,6 +35,7 @@ export default function QuizDetailsEditor({
     ) => void;
     addAnotherMultipleChoiceAnswer: (questionIndex: number) => void;
     setQuestionTrueFalseCorrect: (questionIndex: number, correct: boolean) => void;
+    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
 }) {
     return (
         <div>
@@ -67,6 +69,7 @@ export default function QuizDetailsEditor({
                             setQuestionTrueFalseCorrect={
                                 setQuestionTrueFalseCorrect
                             }
+                            addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
                         />
                     );
                 })}

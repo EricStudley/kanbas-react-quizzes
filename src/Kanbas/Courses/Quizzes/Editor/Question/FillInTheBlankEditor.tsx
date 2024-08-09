@@ -5,10 +5,12 @@ export default function FillInTheBlankEditor({
     question,
     questionIndex,
     setQuestionText,
+    addAnotherFillInTheBlankAnswer,
 }: {
     question: any;
     questionIndex: number;
     setQuestionText: (questionIndex: number, questionText: string) => void;
+    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
 }) {
     return (
         <div>
@@ -22,6 +24,36 @@ export default function FillInTheBlankEditor({
                 onChange={(value) => setQuestionText(questionIndex, value)}
             />
             <h4>Answers:</h4>
+            {question.fillInTheBlankCorrectAnswers.map(
+                (fillInTheBlankCorrectAnswer: any, index: number) => {
+                    return (
+                        <div key={index} className="d-flex align-items-center">
+                            <h5
+                                style={{
+                                    whiteSpace: "nowrap",
+                                    marginTop: "auto",
+                                    marginBottom: "auto",
+                                    marginRight: "10px", // Add margin-right for space
+                                }}
+                            >
+                                Possible Answer:
+                            </h5>
+                            <input
+                                key={index}
+                                type="text"
+                                className="form-control mt-2"
+                                value={fillInTheBlankCorrectAnswer.text}
+                            />
+                        </div>
+                    );
+                }
+            )}
+            <button
+                className="btn btn-primary mt-2"
+                onClick={() => addAnotherFillInTheBlankAnswer(questionIndex)}
+            >
+                + Add Another Answer
+            </button>
         </div>
     );
 }

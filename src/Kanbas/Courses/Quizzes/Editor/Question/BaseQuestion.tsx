@@ -14,6 +14,7 @@ export default function BaseQuestion({
     setMultipleChoiceAnswerText,
     addAnotherMultipleChoiceAnswer,
     setQuestionTrueFalseCorrect,
+    addAnotherFillInTheBlankAnswer,
 }: {
     question: any;
     questionIndex: number;
@@ -32,6 +33,7 @@ export default function BaseQuestion({
     ) => void;
     addAnotherMultipleChoiceAnswer: (questionIndex: number) => void;
     setQuestionTrueFalseCorrect: (questionIndex: number, correct: boolean) => void;
+    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
 }) {
     const isMultipleChoice = question.type === "Multiple Choice";
     const isTrueFalse = question.type === "True/False";
@@ -107,6 +109,7 @@ export default function BaseQuestion({
                     question={question}
                     questionIndex={questionIndex}
                     setQuestionText={setQuestionText}
+                    addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
                 />
             )}
             <hr />
