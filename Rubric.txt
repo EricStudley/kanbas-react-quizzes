@@ -80,7 +80,7 @@ Quiz Details Editor screen:
     ✅Available date - date assignment is available, date input.
     ✅Until date - date assignment is available until, date input.
 ✅* Clicking the Save button saves changes and navigates back to Quiz Details screen.
-✅*  the Save and Publish button saves & publishes quiz and navigates back to Quiz List screen.
+✅* Clicking the Save and Publish button saves & publishes quiz and navigates back to Quiz List screen.
 ✅* Clicking the Cancel button doesn’t save and navigates back to Quiz List screen.
 
 
@@ -93,7 +93,7 @@ Quiz Questions Editor screen:
     ✅True/false,
     ✅Multiple choice question
     ✅Fill in multiple blanks question
-* Points shows sum of all the points of each question.
+✅* Points shows sum of all the points of each question.
 ✅* Clicking Cancel button dismisses the edits
 ✅* Clicking Save saves the edits but does not publish the quiz
 

@@ -92,8 +92,19 @@ export default function QuizEditor() {
         questionIndex: number,
         questionPoints: number
     ) => {
+        //Find all the point value of each question, including the new point value, and add them up
+        const totalPoints = quiz.questions.reduce(
+            (acc: number, question: any, index: number) => {
+                if (index === questionIndex) {
+                    return acc + questionPoints;
+                }
+                return acc + question.points;
+            },
+            0
+        );
         setQuiz({
             ...quiz,
+            points: totalPoints,
             questions: quiz.questions.map((question: any, index: number) => {
                 if (index === questionIndex) {
                     return {
@@ -372,7 +383,16 @@ export default function QuizEditor() {
 
     return (
         <div id="wd-quiz-details">
-            <h2>Quiz Details</h2>
+            <div className="row">
+                <div className="col">
+                    {activeTab === "details" && (
+                        <h5 className="float-end me-2">{quiz.published ? "✅ Published" : "🚫 Not Published"}</h5>
+                    )}
+                    {activeTab === "questions" && (
+                        <h5 className="float-end me-2">Points {quiz.points}</h5>
+                    )}
+                </div>
+            </div>
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <a

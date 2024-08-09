@@ -88,7 +88,7 @@ export default function BaseQuestion({
                     <input
                         type="number"
                         className="form-control"
-                        style={{ maxWidth: "60px" }}
+                        style={{ maxWidth: "100px" }}
                         value={question.points}
                         onChange={(e) =>
                             setQuestionPoints(
