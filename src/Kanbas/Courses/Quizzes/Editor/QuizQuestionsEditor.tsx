@@ -14,9 +14,12 @@ export default function QuizDetailsEditor({
     setQuestionPoints,
     setMultipleChoiceAnswerCorrect,
     setMultipleChoiceAnswerText,
-    addAnotherMultipleChoiceAnswer,
+    addMultipleChoiceAnswer,
+    removeMultipleChoiceAnswer,
     setQuestionTrueFalseCorrect,
-    addAnotherFillInTheBlankAnswer,
+    addFillInTheBlankAnswer,
+    removeFillInTheBlankAnswer,
+    setFillInTheBlankAnswerText,
 }: {
     quiz: any;
     addNewQuestion: () => void;
@@ -33,9 +36,25 @@ export default function QuizDetailsEditor({
         answerIndex: number,
         answerText: string
     ) => void;
-    addAnotherMultipleChoiceAnswer: (questionIndex: number) => void;
-    setQuestionTrueFalseCorrect: (questionIndex: number, correct: boolean) => void;
-    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
+    addMultipleChoiceAnswer: (questionIndex: number) => void;
+    removeMultipleChoiceAnswer: (
+        questionIndex: number,
+        answerIndex: number
+    ) => void
+    setQuestionTrueFalseCorrect: (
+        questionIndex: number,
+        correct: boolean
+    ) => void;
+    addFillInTheBlankAnswer: (questionIndex: number) => void;
+    removeFillInTheBlankAnswer: (
+        questionIndex: number,
+        answerIndex: number
+    ) => void;
+    setFillInTheBlankAnswerText: (
+        questionIndex: number,
+        answerIndex: number,
+        answerText: string
+    ) => void;
 }) {
     return (
         <div>
@@ -63,13 +82,22 @@ export default function QuizDetailsEditor({
                             setMultipleChoiceAnswerText={
                                 setMultipleChoiceAnswerText
                             }
-                            addAnotherMultipleChoiceAnswer={
-                                addAnotherMultipleChoiceAnswer
+                            addMultipleChoiceAnswer={addMultipleChoiceAnswer}
+                            removeMultipleChoiceAnswer={
+                                removeMultipleChoiceAnswer
                             }
                             setQuestionTrueFalseCorrect={
                                 setQuestionTrueFalseCorrect
                             }
-                            addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
+                            addFillInTheBlankAnswer={
+                                addFillInTheBlankAnswer
+                            }
+                            removeFillInTheBlankAnswer={
+                                removeFillInTheBlankAnswer
+                            }
+                            setFillInTheBlankAnswerText={
+                                setFillInTheBlankAnswerText
+                            }
                         />
                     );
                 })}

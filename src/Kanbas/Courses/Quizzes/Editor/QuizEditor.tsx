@@ -88,7 +88,10 @@ export default function QuizEditor() {
         setQuiz(quiz);
     };
 
-    const setQuestionPoints = (questionIndex: number, questionPoints: number) => {
+    const setQuestionPoints = (
+        questionIndex: number,
+        questionPoints: number
+    ) => {
         setQuiz({
             ...quiz,
             questions: quiz.questions.map((question: any, index: number) => {
@@ -101,7 +104,7 @@ export default function QuizEditor() {
                 return question;
             }),
         });
-    }
+    };
 
     const setQuestionTitle = (questionIndex: number, questionTitle: string) => {
         setQuiz({
@@ -116,7 +119,7 @@ export default function QuizEditor() {
                 return question;
             }),
         });
-    }
+    };
 
     const setQuestionType = (questionIndex: number, questionType: string) => {
         setQuiz({
@@ -131,67 +134,105 @@ export default function QuizEditor() {
                 return question;
             }),
         });
-    }
+    };
 
-    const setMultipleChoiceAnswerCorrect = (questionIndex: number, answerIndex: number) => {
+    const setMultipleChoiceAnswerCorrect = (
+        questionIndex: number,
+        answerIndex: number
+    ) => {
         setQuiz({
             ...quiz,
             questions: quiz.questions.map((question: any, index: number) => {
                 if (index === questionIndex) {
                     return {
                         ...question,
-                        multipleChoices: question.multipleChoices.map((multipleChoice: any, i: number) => {
-                            return {
-                                ...multipleChoice,
-                                correct: i === answerIndex,
-                            };
-                        }),
-                    };
-                }
-                return question;
-            }),
-        });
-    }
-
-    const setMultipleChoiceAnswerText = (questionIndex: number, answerIndex: number, answerText: string) => {
-        setQuiz({
-            ...quiz,
-            questions: quiz.questions.map((question: any, index: number) => {
-                if (index === questionIndex) {
-                    return {
-                        ...question,
-                        multipleChoices: question.multipleChoices.map((multipleChoice: any, i: number) => {
-                            if (i === answerIndex) {
+                        multipleChoices: question.multipleChoices.map(
+                            (multipleChoice: any, i: number) => {
                                 return {
                                     ...multipleChoice,
-                                    text: answerText,
+                                    correct: i === answerIndex,
                                 };
                             }
-                            return multipleChoice;
-                        }),
+                        ),
                     };
                 }
                 return question;
             }),
         });
-    }
+    };
 
-    const addAnotherMultipleChoiceAnswer = (questionIndex: number) => {
+    const setMultipleChoiceAnswerText = (
+        questionIndex: number,
+        answerIndex: number,
+        answerText: string
+    ) => {
         setQuiz({
             ...quiz,
             questions: quiz.questions.map((question: any, index: number) => {
                 if (index === questionIndex) {
                     return {
                         ...question,
-                        multipleChoices: [...question.multipleChoices, { text: "New Answer", correct: false }],
+                        multipleChoices: question.multipleChoices.map(
+                            (multipleChoice: any, i: number) => {
+                                if (i === answerIndex) {
+                                    return {
+                                        ...multipleChoice,
+                                        text: answerText,
+                                    };
+                                }
+                                return multipleChoice;
+                            }
+                        ),
                     };
                 }
                 return question;
             }),
         });
-    }
+    };
 
-    const setQuestionTrueFalseCorrect = (questionIndex: number, correct: boolean) => {
+    const addMultipleChoiceAnswer = (questionIndex: number) => {
+        setQuiz({
+            ...quiz,
+            questions: quiz.questions.map((question: any, index: number) => {
+                if (index === questionIndex) {
+                    return {
+                        ...question,
+                        multipleChoices: [
+                            ...question.multipleChoices,
+                            { text: "New Answer", correct: false },
+                        ],
+                    };
+                }
+                return question;
+            }),
+        });
+    };
+
+    const removeMultipleChoiceAnswer = (
+        questionIndex: number,
+        answerIndex: number
+    ) => {
+        setQuiz({
+            ...quiz,
+            questions: quiz.questions.map((question: any, index: number) => {
+                if (index === questionIndex) {
+                    return {
+                        ...question,
+                        multipleChoices: question.multipleChoices.filter(
+                            (multipleChoice: any, i: number) =>
+                                i !== answerIndex
+                        ),
+                    };
+                }
+                return question;
+            }),
+        });
+    };
+
+    const setQuestionTrueFalseCorrect = (
+        questionIndex: number,
+        correct: boolean
+    ) => {
         setQuiz({
             ...quiz,
             questions: quiz.questions.map((question: any, index: number) => {
@@ -204,22 +245,80 @@ export default function QuizEditor() {
                 return question;
             }),
         });
-    }
+    };
 
-    const addAnotherFillInTheBlankAnswer = (questionIndex: number) => {
+    const addFillInTheBlankAnswer = (questionIndex: number) => {
         setQuiz({
             ...quiz,
             questions: quiz.questions.map((question: any, index: number) => {
                 if (index === questionIndex) {
                     return {
                         ...question,
-                        fillInTheBlankCorrectAnswers: [...question.fillInTheBlankCorrectAnswers, { text: "New Answer" }],
+                        fillInTheBlankCorrectAnswers: [
+                            ...question.fillInTheBlankCorrectAnswers,
+                            { text: "New Answer" },
+                        ],
                     };
                 }
                 return question;
             }),
         });
-    }
+    };
+
+    const removeFillInTheBlankAnswer = (
+        questionIndex: number,
+        answerIndex: number
+    ) => {
+        setQuiz({
+            ...quiz,
+            questions: quiz.questions.map((question: any, index: number) => {
+                if (index === questionIndex) {
+                    return {
+                        ...question,
+                        fillInTheBlankCorrectAnswers:
+                            question.fillInTheBlankCorrectAnswers.filter(
+                                (fillInTheBlankCorrectAnswer: any, i: number) =>
+                                    i !== answerIndex
+                            ),
+                    };
+                }
+                return question;
+            }),
+        });
+    };
+
+    const setFillInTheBlankAnswerText = (
+        questionIndex: number,
+        answerIndex: number,
+        answerText: string
+    ) => {
+        setQuiz({
+            ...quiz,
+            questions: quiz.questions.map((question: any, index: number) => {
+                if (index === questionIndex) {
+                    return {
+                        ...question,
+                        fillInTheBlankCorrectAnswers:
+                            question.fillInTheBlankCorrectAnswers.map(
+                                (
+                                    fillInTheBlankCorrectAnswer: any,
+                                    i: number
+                                ) => {
+                                    if (i === answerIndex) {
+                                        return {
+                                            ...fillInTheBlankCorrectAnswer,
+                                            text: answerText,
+                                        };
+                                    }
+                                    return fillInTheBlankCorrectAnswer;
+                                }
+                            ),
+                    };
+                }
+                return question;
+            }),
+        });
+    };
 
     const setQuestionText = (questionIndex: number, questionText: string) => {
         setQuiz({
@@ -234,7 +333,7 @@ export default function QuizEditor() {
                 return question;
             }),
         });
-    }
+    };
 
     const addNewQuestion = () => {
         const newQuestion = {
@@ -321,11 +420,16 @@ export default function QuizEditor() {
                     setQuestionText={setQuestionText}
                     setQuestionPoints={setQuestionPoints}
                     addNewQuestion={addNewQuestion}
-                    setMultipleChoiceAnswerCorrect={setMultipleChoiceAnswerCorrect}
+                    setMultipleChoiceAnswerCorrect={
+                        setMultipleChoiceAnswerCorrect
+                    }
                     setMultipleChoiceAnswerText={setMultipleChoiceAnswerText}
-                    addAnotherMultipleChoiceAnswer={addAnotherMultipleChoiceAnswer}
+                    addMultipleChoiceAnswer={addMultipleChoiceAnswer}
+                    removeMultipleChoiceAnswer={removeMultipleChoiceAnswer}
                     setQuestionTrueFalseCorrect={setQuestionTrueFalseCorrect}
-                    addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
+                    addFillInTheBlankAnswer={addFillInTheBlankAnswer}
+                    removeFillInTheBlankAnswer={removeFillInTheBlankAnswer}
+                    setFillInTheBlankAnswerText={setFillInTheBlankAnswerText}
                 />
             )}
             <button

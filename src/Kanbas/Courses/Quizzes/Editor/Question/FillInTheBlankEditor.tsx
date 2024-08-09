@@ -1,16 +1,28 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { GoTrash } from "react-icons/go";
 
 export default function FillInTheBlankEditor({
     question,
     questionIndex,
     setQuestionText,
-    addAnotherFillInTheBlankAnswer,
+    addFillInTheBlankAnswer,
+    removeFillInTheBlankAnswer,
+    setFillInTheBlankAnswerText,
 }: {
     question: any;
     questionIndex: number;
     setQuestionText: (questionIndex: number, questionText: string) => void;
-    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
+    addFillInTheBlankAnswer: (questionIndex: number) => void;
+    removeFillInTheBlankAnswer: (
+        questionIndex: number,
+        answerIndex: number
+    ) => void;
+    setFillInTheBlankAnswerText: (
+        questionIndex: number,
+        answerIndex: number,
+        answerText: string
+    ) => void;
 }) {
     return (
         <div>
@@ -43,6 +55,22 @@ export default function FillInTheBlankEditor({
                                 type="text"
                                 className="form-control mt-2"
                                 value={fillInTheBlankCorrectAnswer.text}
+                                onChange={(e) =>
+                                    setFillInTheBlankAnswerText(
+                                        questionIndex,
+                                        index,
+                                        e.target.value
+                                    )
+                                }
+                            />
+                            <GoTrash
+                                className="ms-2"
+                                onClick={() =>
+                                    removeFillInTheBlankAnswer(
+                                        questionIndex,
+                                        index
+                                    )
+                                }
                             />
                         </div>
                     );
@@ -50,7 +78,7 @@ export default function FillInTheBlankEditor({
             )}
             <button
                 className="btn btn-primary mt-2"
-                onClick={() => addAnotherFillInTheBlankAnswer(questionIndex)}
+                onClick={() => addFillInTheBlankAnswer(questionIndex)}
             >
                 + Add Another Answer
             </button>

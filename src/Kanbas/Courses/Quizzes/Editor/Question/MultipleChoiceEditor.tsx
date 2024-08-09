@@ -1,5 +1,6 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { GoTrash } from "react-icons/go";
 
 export default function MultipleChoiceEditor({
     question,
@@ -8,7 +9,8 @@ export default function MultipleChoiceEditor({
     setQuestionText,
     setMultipleChoiceAnswerCorrect,
     setMultipleChoiceAnswerText,
-    addAnotherMultipleChoiceAnswer,
+    addMultipleChoiceAnswer,
+    removeMultipleChoiceAnswer,
 }: {
     question: any;
     questionIndex: number;
@@ -22,8 +24,9 @@ export default function MultipleChoiceEditor({
         questionIndex: number,
         answerIndex: number,
         answerText: string
-    ) => void
-    addAnotherMultipleChoiceAnswer: (questionIndex: number) => void;
+    ) => void;
+    addMultipleChoiceAnswer: (questionIndex: number) => void;
+    removeMultipleChoiceAnswer: (questionIndex: number, answerIndex: number) => void;
 }) {
     return (
         <div>
@@ -40,7 +43,7 @@ export default function MultipleChoiceEditor({
                 return (
                     <div
                         key={multipleChoice._id}
-                        className="d-flex align-items-center"
+                        className="d-flex align-items-center mb-2"
                     >
                         <input
                             type="radio"
@@ -66,12 +69,21 @@ export default function MultipleChoiceEditor({
                                 )
                             }
                         />
+                        <GoTrash
+                            className="ms-2"
+                            onClick={() =>
+                                removeMultipleChoiceAnswer(
+                                    questionIndex,
+                                    index
+                                )
+                            }
+                        />
                     </div>
                 );
             })}
             <button
                 className="btn btn-primary mt-2"
-                onClick={() => addAnotherMultipleChoiceAnswer(questionIndex)}
+                onClick={() => addMultipleChoiceAnswer(questionIndex)}
             >
                 + Add Another Answer
             </button>

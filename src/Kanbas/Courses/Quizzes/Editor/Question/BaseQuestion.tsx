@@ -12,9 +12,12 @@ export default function BaseQuestion({
     setQuestionPoints,
     setMultipleChoiceAnswerCorrect,
     setMultipleChoiceAnswerText,
-    addAnotherMultipleChoiceAnswer,
+    addMultipleChoiceAnswer,
+    removeMultipleChoiceAnswer,
     setQuestionTrueFalseCorrect,
-    addAnotherFillInTheBlankAnswer,
+    addFillInTheBlankAnswer,
+    removeFillInTheBlankAnswer,
+    setFillInTheBlankAnswerText,
 }: {
     question: any;
     questionIndex: number;
@@ -31,9 +34,25 @@ export default function BaseQuestion({
         answerIndex: number,
         answerText: string
     ) => void;
-    addAnotherMultipleChoiceAnswer: (questionIndex: number) => void;
-    setQuestionTrueFalseCorrect: (questionIndex: number, correct: boolean) => void;
-    addAnotherFillInTheBlankAnswer: (questionIndex: number) => void;
+    addMultipleChoiceAnswer: (questionIndex: number) => void;
+    removeMultipleChoiceAnswer: (
+        questionIndex: number,
+        answerIndex: number
+    ) => void;
+    setQuestionTrueFalseCorrect: (
+        questionIndex: number,
+        correct: boolean
+    ) => void;
+    addFillInTheBlankAnswer: (questionIndex: number) => void;
+    removeFillInTheBlankAnswer: (
+        questionIndex: number,
+        answerIndex: number
+    ) => void;
+    setFillInTheBlankAnswerText: (
+        questionIndex: number,
+        answerIndex: number,
+        answerText: string
+    ) => void;
 }) {
     const isMultipleChoice = question.type === "Multiple Choice";
     const isTrueFalse = question.type === "True/False";
@@ -91,9 +110,8 @@ export default function BaseQuestion({
                     }
                     setMultipleChoiceAnswerText={setMultipleChoiceAnswerText}
                     setQuestionText={setQuestionText}
-                    addAnotherMultipleChoiceAnswer={
-                        addAnotherMultipleChoiceAnswer
-                    }
+                    addMultipleChoiceAnswer={addMultipleChoiceAnswer}
+                    removeMultipleChoiceAnswer={removeMultipleChoiceAnswer}
                 />
             )}
             {isTrueFalse && (
@@ -109,7 +127,9 @@ export default function BaseQuestion({
                     question={question}
                     questionIndex={questionIndex}
                     setQuestionText={setQuestionText}
-                    addAnotherFillInTheBlankAnswer={addAnotherFillInTheBlankAnswer}
+                    addFillInTheBlankAnswer={addFillInTheBlankAnswer}
+                    removeFillInTheBlankAnswer={removeFillInTheBlankAnswer}
+                    setFillInTheBlankAnswerText={setFillInTheBlankAnswerText}
                 />
             )}
             <hr />
