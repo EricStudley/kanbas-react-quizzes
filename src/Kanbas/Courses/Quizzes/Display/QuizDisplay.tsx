@@ -12,6 +12,7 @@ const QuizDisplay: React.FC = () => {
     const navigate = useNavigate();
     const { cid, qid } = useParams<string>();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const isStudent = currentUser.role === "STUDENT";
     const [quiz, setQuiz] = useState<any>({
         questions: [],
     });
@@ -165,7 +166,8 @@ const QuizDisplay: React.FC = () => {
         <div>
             {/* //Display the current date and time*/}
             <h6>
-                Started: {new Date().toLocaleString("en-US", {
+                Started:{" "}
+                {new Date().toLocaleString("en-US", {
                     month: "long",
                     day: "numeric",
                     hour: "numeric",
@@ -240,14 +242,18 @@ const QuizDisplay: React.FC = () => {
                 <button className="btn btn-primary" onClick={submitQuizAnswers}>
                     Submit Quiz
                 </button>
-                <button
-                    className="btn btn-secondary"
-                    onClick={() =>
-                        navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/edit`)
-                    }
-                >
-                    Edit Quiz
-                </button>
+                {!isStudent && (
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() =>
+                            navigate(
+                                `/Kanbas/Courses/${cid}/Quizzes/${qid}/edit`
+                            )
+                        }
+                    >
+                        Edit Quiz
+                    </button>
+                )}
             </div>
         </div>
     );

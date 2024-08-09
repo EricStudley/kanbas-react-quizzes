@@ -8,6 +8,7 @@ export default function QuizResults() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [answers, setAnswers] = useState<any>([]);
     const [score, setScore] = useState(0);
+    const [totalPossibleScore, setTotalPossibleScore] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState(0);
 
     const fetchAnswers = async () => {
@@ -25,10 +26,12 @@ export default function QuizResults() {
         const questions = quiz.questions;
 
         let score = 0;
+        let totalPossibleScore = 0;
         let correctAnswers = 0;
 
         for (let i = 0; i < questions.length; i++) {
             const question = questions[i];
+            totalPossibleScore += question.points;
             const answer = fetchedQuizAnswers.answers.find(
                 (answer: any) => answer.questionId === question._id
             );
@@ -71,6 +74,7 @@ export default function QuizResults() {
 
         setScore(score);
         setCorrectAnswers(correctAnswers);
+        setTotalPossibleScore(totalPossibleScore);
     };
 
     useEffect(() => {
@@ -85,10 +89,10 @@ export default function QuizResults() {
             </div>
             <div>
                 <div className="alert alert-success">
-                    ✅ You scored {score}.
+                    ✅ You scored {score} out of {totalPossibleScore} points.
                 </div>
                 <div className="alert alert-info">
-                    📝 You answered {correctAnswers} correctly.
+                    📝 You answered {correctAnswers} questions correctly.
                 </div>
             </div>
         </div>

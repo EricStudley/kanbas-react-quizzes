@@ -137,14 +137,14 @@ Quiz Preview screen:
 ✅* Faculty can answer the quiz.
 ✅* When faculty submits the quiz, the answers are saved for that quiz.
 ✅* The preview shows previous answers by faculty to the quiz.
-* The final score for the quiz is calculated.
+✅* The final score for the quiz is calculated.
 
 
 Quiz screen:
-* Answers to the quiz are stored per student.
-* The following data is persisted between sessions:
-    Most previous answers given to the quiz.
-    Score for the most previous attempt.
+✅* Answers to the quiz are stored per student.
+✅* The following data is persisted between sessions:
+    ✅Most previous answers given to the quiz.
+    ✅Score for the most previous attempt.
 * Correct answers are highlighted as green, or given a checkmark.
 * Incorrect answers are highlighted as red, or given an X mark.
 * Students are unable to change the answers of a quiz that has been taken previously.
