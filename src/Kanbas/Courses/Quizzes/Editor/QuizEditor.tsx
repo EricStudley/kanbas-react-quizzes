@@ -92,7 +92,6 @@ export default function QuizEditor() {
         questionIndex: number,
         questionPoints: number
     ) => {
-        //Find all the point value of each question, including the new point value, and add them up
         const totalPoints = quiz.questions.reduce(
             (acc: number, question: any, index: number) => {
                 if (index === questionIndex) {
