@@ -192,7 +192,7 @@ const QuizDisplay: React.FC = () => {
                             <BaseQuestionDisplay
                                 question={question}
                                 questionId={question._id}
-                                answer={Object.values(answers).find(
+                                selectedAnswer={Object.values(answers).find(
                                     (answer: any) =>
                                         answer.questionId === question._id
                                 )}

@@ -3,14 +3,14 @@ import React from "react";
 interface TrueFalseDisplayProps {
     question: any;
     questionId: number;
-    answer: string;
+    selectedAnswer: string;
     setTrueFalseAnswer: (questionId: number, trueFalseAnswer: string) => void;
 }
 
 const TrueFalseDisplay: React.FC<TrueFalseDisplayProps> = ({
     question,
     questionId,
-    answer,
+    selectedAnswer,
     setTrueFalseAnswer,
 }) => {
     return (
@@ -19,7 +19,7 @@ const TrueFalseDisplay: React.FC<TrueFalseDisplayProps> = ({
             <div>
                 <input
                     type="radio"
-                    checked={answer === "true"}
+                    checked={selectedAnswer === "true"}
                     onChange={() => setTrueFalseAnswer(questionId, "true")}
                 />{" "}
                 <label>True</label>
@@ -28,7 +28,7 @@ const TrueFalseDisplay: React.FC<TrueFalseDisplayProps> = ({
             <div>
                 <input
                     type="radio"
-                    checked={answer === "false"}
+                    checked={selectedAnswer === "false"}
                     onChange={() => setTrueFalseAnswer(questionId, "false")}
                 />{" "}
                 <label>False</label>

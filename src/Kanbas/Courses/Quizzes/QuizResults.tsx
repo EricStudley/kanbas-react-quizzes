@@ -2,14 +2,24 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import * as client from "./client";
+import BaseQuestionDisplay from "./Display/BaseQuestionDisplay";
 
 export default function QuizResults() {
     const { qid } = useParams<string>();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const [answers, setAnswers] = useState<any>([]);
+    const isStudent = currentUser.role === "Student";
     const [score, setScore] = useState(0);
     const [totalPossibleScore, setTotalPossibleScore] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [answers, setAnswers] = useState<any>([]);
+    const [quiz, setQuiz] = useState<any>({
+        questions: [],
+    });
+
+    const fetchQuiz = async () => {
+        const fetchedQuiz = await client.findQuiz(qid as string);
+        setQuiz(fetchedQuiz);
+    };
 
     const fetchAnswers = async () => {
         const fetchedQuizAnswers = currentUser.quizAnswers.find(
@@ -78,15 +88,18 @@ export default function QuizResults() {
     };
 
     useEffect(() => {
+        fetchQuiz();
         fetchAnswers();
     }, [qid]);
 
     return (
         <div>
             <h3>Quiz Results</h3>
-            <div className="alert alert-danger">
-                ❗ This is a preview of the published version of the quiz.
-            </div>
+            {!isStudent && (
+                <div className="alert alert-danger">
+                    ❗ This is a preview of the published version of the quiz.
+                </div>
+            )}
             <div>
                 <div className="alert alert-success">
                     ✅ You scored {score} out of {totalPossibleScore} points.
@@ -95,6 +108,27 @@ export default function QuizResults() {
                     📝 You answered {correctAnswers} questions correctly.
                 </div>
             </div>
+            {quiz.questions.map((question: any, index: number) => (
+                <div className="quiz-preview-question" key={index}>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h4 className="mb-0">Question {index + 1}</h4>
+                        <div className="quiz-preview-question-points">
+                            {question.points} pts
+                        </div>
+                    </div>
+                    <br />
+                    <BaseQuestionDisplay
+                        question={question}
+                        questionId={question._id}
+                        selectedAnswer={Object.values(answers).find(
+                            (answer: any) => answer.questionId === question._id
+                        )}
+                        setMultipleChoiceAnswerIndex={() => {}}
+                        setTrueFalseAnswer={() => {}}
+                        setFillInTheBlankAnswer={() => {}}
+                    />
+                </div>
+            ))}
         </div>
     );
 }

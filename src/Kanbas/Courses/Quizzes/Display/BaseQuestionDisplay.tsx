@@ -6,16 +6,22 @@ import FillInTheBlankDisplay from "./FillInTheBlankDisplay";
 interface BaseQuestionDisplayProps {
     question: any;
     questionId: number;
-    answer: any;
-    setMultipleChoiceAnswerIndex: (questionId: number, multipleChoiceAnswerIndex: number) => void;
+    selectedAnswer: any;
+    setMultipleChoiceAnswerIndex: (
+        questionId: number,
+        multipleChoiceAnswerIndex: number
+    ) => void;
     setTrueFalseAnswer: (questionId: number, trueFalseAnswer: string) => void;
-    setFillInTheBlankAnswer: (questionId: number, fillInTheBlankAnswer: string) => void;
+    setFillInTheBlankAnswer: (
+        questionId: number,
+        fillInTheBlankAnswer: string
+    ) => void;
 }
 
 const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
     question,
     questionId,
-    answer,
+    selectedAnswer,
     setMultipleChoiceAnswerIndex,
     setTrueFalseAnswer,
     setFillInTheBlankAnswer,
@@ -33,7 +39,7 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                 <MultipleChoiceDisplay
                     question={question}
                     questionId={questionId}
-                    answer={answer?.multipleChoiceAnswerIndex}
+                    selectedAnswer={selectedAnswer?.multipleChoiceAnswerIndex}
                     setMultipleChoiceAnswerIndex={setMultipleChoiceAnswerIndex}
                 />
             )}
@@ -41,7 +47,7 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                 <TrueFalseDisplay
                     question={question}
                     questionId={questionId}
-                    answer={answer?.trueFalseAnswer}
+                    selectedAnswer={selectedAnswer?.trueFalseAnswer}
                     setTrueFalseAnswer={setTrueFalseAnswer}
                 />
             )}
@@ -49,7 +55,7 @@ const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
                 <FillInTheBlankDisplay
                     question={question}
                     questionId={questionId}
-                    answer={answer?.fillInTheBlankAnswer}
+                    selectedAnswer={selectedAnswer?.fillInTheBlankAnswer}
                     setFillInTheBlankAnswer={setFillInTheBlankAnswer}
                 />
             )}

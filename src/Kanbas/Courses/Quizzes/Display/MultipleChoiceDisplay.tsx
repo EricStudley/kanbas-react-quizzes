@@ -3,7 +3,7 @@ import React from "react";
 interface MultipleChoiceDisplayProps {
     question: any;
     questionId: number;
-    answer: any;
+    selectedAnswer: any;
     setMultipleChoiceAnswerIndex: (
         questionId: number,
         multipleChoiceAnswerIndex: number
@@ -13,7 +13,7 @@ interface MultipleChoiceDisplayProps {
 const MultipleChoiceDisplay: React.FC<MultipleChoiceDisplayProps> = ({
     question,
     questionId,
-    answer,
+    selectedAnswer,
     setMultipleChoiceAnswerIndex,
 }) => {
     return (
@@ -24,7 +24,7 @@ const MultipleChoiceDisplay: React.FC<MultipleChoiceDisplayProps> = ({
                     <div key={index}>
                         <input
                             type="radio"
-                            checked={answer === index}
+                            checked={selectedAnswer === index}
                             onChange={() =>
                                 setMultipleChoiceAnswerIndex(questionId, index)
                             }
