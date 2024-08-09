@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 
 interface MultipleChoicePreviewProps {
     question: any;
-    questionIndex: number;
+    questionId: number;
     answer: any;
-    onAnswerChange: (answer: any) => void;
+    setMultipleChoiceAnswerIndex: (questionId: number, multipleChoiceAnswerIndex: number) => void;
 }
 
 const MultipleChoicePreview: React.FC<MultipleChoicePreviewProps> = ({
     question,
-    questionIndex,
+    questionId,
     answer,
-    onAnswerChange,
+    setMultipleChoiceAnswerIndex,
 }) => {
     return (
         <div>
-            {question.multipleChoices.map((choice: any, index: number) => (
+            {question.multipleChoices?.map((multipleChoice: any, index: number) => (
                 <div key={index}>
                     <input
                         type="radio"
-                        checked={answer === choice.text}
-                        onChange={() => onAnswerChange(choice.text)}
+                        checked={answer === index}
+                        onChange={() => setMultipleChoiceAnswerIndex(questionId, index)}
                     />
-                    <label>{choice.text}</label>
+                    <label>{multipleChoice.text}</label>
                 </div>
             ))}
         </div>

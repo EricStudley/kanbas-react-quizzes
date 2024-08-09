@@ -84,7 +84,7 @@ export default function QuizDetails() {
                         className="btn btn-outline-secondary me-2"
                         onClick={() =>
                             navigate(
-                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`
+                                `/Kanbas/Courses/${cid}/Quizzes/${qid}/preview`
                             )
                         }
                     >
@@ -94,7 +94,7 @@ export default function QuizDetails() {
                         className="btn btn-primary"
                         onClick={() =>
                             navigate(
-                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/edit`
+                                `/Kanbas/Courses/${cid}/Quizzes/${qid}/edit`
                             )
                         }
                     >

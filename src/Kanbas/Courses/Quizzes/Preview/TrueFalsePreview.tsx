@@ -1,33 +1,33 @@
-import React from 'react';
+import React from "react";
 
 interface TrueFalsePreviewProps {
     question: any;
-    questionIndex: number;
-    answer: any;
-    onAnswerChange: (answer: any) => void;
+    questionId: number;
+    answer: string;
+    setTrueFalseAnswer: (questionId: number, trueFalseAnswer: string) => void;
 }
 
 const TrueFalsePreview: React.FC<TrueFalsePreviewProps> = ({
     question,
-    questionIndex,
+    questionId,
     answer,
-    onAnswerChange,
+    setTrueFalseAnswer,
 }) => {
     return (
         <div>
             <div>
                 <input
                     type="radio"
-                    checked={answer === 'True'}
-                    onChange={() => onAnswerChange('True')}
+                    checked={answer === "true"}
+                    onChange={() => setTrueFalseAnswer(questionId, "true")}
                 />
                 <label>True</label>
             </div>
             <div>
                 <input
                     type="radio"
-                    checked={answer === 'False'}
-                    onChange={() => onAnswerChange('False')}
+                    checked={answer === "false"}
+                    onChange={() => setTrueFalseAnswer(questionId, "false")}
                 />
                 <label>False</label>
             </div>

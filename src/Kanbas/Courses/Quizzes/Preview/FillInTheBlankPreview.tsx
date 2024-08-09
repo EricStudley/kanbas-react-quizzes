@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 
 interface FillInTheBlankPreviewProps {
     question: any;
-    questionIndex: number;
-    answer: any;
-    onAnswerChange: (answer: any) => void;
+    questionId: number;
+    answer: string;
+    setFillInTheBlankAnswer: (questionId: number, fillInTheBlankAnswer: string) => void;
 }
 
 const FillInTheBlankPreview: React.FC<FillInTheBlankPreviewProps> = ({
     question,
-    questionIndex,
+    questionId,
     answer,
-    onAnswerChange,
+    setFillInTheBlankAnswer,
 }) => {
     return (
         <div>
             <input
                 type="text"
                 value={answer}
-                onChange={(e) => onAnswerChange(e.target.value)}
+                onChange={(e) => setFillInTheBlankAnswer(questionId, e.target.value)}
             />
         </div>
     );
