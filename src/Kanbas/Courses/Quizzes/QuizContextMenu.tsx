@@ -9,10 +9,12 @@ export default function QuizContextDropdown({ qid }: { qid: string }) {
     const dispatch = useDispatch();
     const { cid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    
     const removeQuiz = async (qid: string) => {
         const status = await client.deleteQuiz(qid);
         dispatch(deleteQuiz(qid));
     };
+
     return (
         <div className="dropdown d-inline me-1 float-end">
             <button

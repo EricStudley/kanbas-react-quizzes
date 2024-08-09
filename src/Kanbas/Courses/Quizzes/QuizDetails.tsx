@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Quiz } from "./types";
+import * as client from "./client";
+import { setQuizzes } from "./reducer";
 
 export default function QuizDetails() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { qid } = useParams<{ qid: string }>();
+    const { cid, qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const [quiz, setQuiz] = useState<any>({
-        name: "New Quiz",
+        name: "New Quiz",   
         course: "",
         description: "",
         quizType: "Graded Quiz",
@@ -31,12 +34,20 @@ export default function QuizDetails() {
         availableDate: "",
         untilDate: "",
     });
+    
+    const fetchQuizzes = async () => {
+        const quizzes = await client.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+        const quiz = quizzes.find((q: any) => q._id === qid);
+        setQuiz(quiz);
+    };
+
     useEffect(() => {
         if (qid !== "New") {
-            const q = quizzes.find((q: any) => q._id === qid);
-            setQuiz(q);
+            fetchQuizzes();
         }
     }, [qid]);
+
     return (
         <div className="quiz-details mt-2">
             <div className="d-flex justify-content-end align-items-center mb-4">
@@ -136,7 +147,9 @@ export default function QuizDetails() {
                                             Show Correct Answers
                                         </td>
                                         <td className="text-start">
-                                            {quiz.showCorrectAnswers ? "Yes" : "No"}
+                                            {quiz.showCorrectAnswers
+                                                ? "Yes"
+                                                : "No"}
                                         </td>
                                     </tr>
                                     <tr>

@@ -11,7 +11,6 @@ export const signin = async (credentials: any) => {
 
 export const profile = async () => {
     const response = await axiosWithCredentials.post(`${USERS_API}/profile`);
-    console.log("ACCOUNT/CLIENT.TS UPDATE PROFILE COURSES:", response.data)
     return response.data;
 };
 

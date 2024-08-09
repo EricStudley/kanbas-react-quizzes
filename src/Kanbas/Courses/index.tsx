@@ -3,7 +3,7 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentsEditor from "./Assignments/Editor";
-import QuizEditor from "./Quizzes/Editor";
+import QuizEditor from "./Quizzes/Editor/QuizEditor";
 import Quizzes from "./Quizzes";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import { FaAlignJustify } from "react-icons/fa6";
