@@ -1,9 +1,9 @@
 import React from "react";
-import MultipleChoicePreview from "./MultipleChoicePreview";
-import TrueFalsePreview from "./TrueFalsePreview";
-import FillInTheBlankPreview from "./FillInTheBlankPreview";
+import MultipleChoiceDisplay from "./MultipleChoiceDisplay";
+import TrueFalseDisplay from "./TrueFalseDisplay";
+import FillInTheBlankDisplay from "./FillInTheBlankDisplay";
 
-interface BaseQuestionPreviewProps {
+interface BaseQuestionDisplayProps {
     question: any;
     questionId: number;
     answer: any;
@@ -12,7 +12,7 @@ interface BaseQuestionPreviewProps {
     setFillInTheBlankAnswer: (questionId: number, fillInTheBlankAnswer: string) => void;
 }
 
-const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
+const BaseQuestionDisplay: React.FC<BaseQuestionDisplayProps> = ({
     question,
     questionId,
     answer,
@@ -30,7 +30,7 @@ const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
                 dangerouslySetInnerHTML={{ __html: question.question }}
             />
             {isMultipleChoice && (
-                <MultipleChoicePreview
+                <MultipleChoiceDisplay
                     question={question}
                     questionId={questionId}
                     answer={answer?.multipleChoiceAnswerIndex}
@@ -38,7 +38,7 @@ const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
                 />
             )}
             {isTrueFalse && (
-                <TrueFalsePreview
+                <TrueFalseDisplay
                     question={question}
                     questionId={questionId}
                     answer={answer?.trueFalseAnswer}
@@ -46,7 +46,7 @@ const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
                 />
             )}
             {isFillInTheBlank && (
-                <FillInTheBlankPreview
+                <FillInTheBlankDisplay
                     question={question}
                     questionId={questionId}
                     answer={answer?.fillInTheBlankAnswer}
@@ -57,4 +57,4 @@ const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
     );
 };
 
-export default BaseQuestionPreview;
+export default BaseQuestionDisplay;

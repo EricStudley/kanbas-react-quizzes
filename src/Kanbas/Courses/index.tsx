@@ -9,10 +9,11 @@ import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import { FaAlignJustify } from "react-icons/fa6";
 import Grades from "./Grades";
 import PeopleTable from "./People/Table";
-import StudentQuiz from "./Quizzes/StudentQuiz";
 import QuizDetails from "./Quizzes/QuizDetails";
 import { useSelector } from "react-redux";
-import QuizPreview from "./Quizzes/Preview/QuizPreview";
+import StudentQuiz from "./Quizzes/StudentQuiz";
+import QuizPreview from "./Quizzes/QuizPreview";
+import QuizResults from "./Quizzes/QuizResults";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
@@ -55,6 +56,10 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route
                             path="Quizzes/:qid/preview"
                             element={<QuizPreview />}
+                        />
+                        <Route
+                            path="Quizzes/:qid/results"
+                            element={<QuizResults />}
                         />
                         <Route path="Grades" element={<Grades />} />
                         <Route path="People" element={<PeopleTable />} />

@@ -131,12 +131,12 @@ Fill in the Blank Question Editor:
 
 
 Quiz Preview screen:
-* Displays the quiz as students would see the quiz. 
-* All questions in quiz are displayed.
-* Each question is rendered in the format based on their type.
-* Faculty can answer the quiz.
-* When faculty submits the quiz, the answers are saved for that quiz.
-* The preview shows previous answers by faculty to the quiz.
+✅* Displays the quiz as students would see the quiz. 
+✅* All questions in quiz are displayed.
+✅* Each question is rendered in the format based on their type.
+✅* Faculty can answer the quiz.
+✅* When faculty submits the quiz, the answers are saved for that quiz.
+✅* The preview shows previous answers by faculty to the quiz.
 * The final score for the quiz is calculated.
 
 

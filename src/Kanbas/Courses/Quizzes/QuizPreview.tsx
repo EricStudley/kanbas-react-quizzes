@@ -3,7 +3,7 @@ import QuizDisplay from "./Display/QuizDisplay";
 import { useEffect, useState } from "react";
 import * as client from "./client";
 
-export default function StudentQuiz() {
+export default function QuizPreview() {
     const { qid } = useParams<string>();
     const [quiz, setQuiz] = useState<any>({});
 
@@ -19,6 +19,9 @@ export default function StudentQuiz() {
     return (
         <div>
             <h3>{quiz.name}</h3>
+            <div className="alert alert-danger">
+                ❗ This is a preview of the published version of the quiz.
+            </div>
             <QuizDisplay />
         </div>
     );

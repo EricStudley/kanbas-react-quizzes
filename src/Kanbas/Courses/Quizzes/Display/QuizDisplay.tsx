@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import * as client from "../client";
-import BaseQuestionPreview from "./BaseQuestionPreview";
-import "./QuizPreview.css";
+import BaseQuestionDisplay from "./BaseQuestionDisplay";
+import "./QuizDisplay.css";
 import { useDispatch, useSelector } from "react-redux";
 import * as peopleClient from "../../People/client";
 import { setCurrentUser } from "../../../Account/reducer";
 
-const QuizPreview: React.FC = () => {
+const QuizDisplay: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cid, qid } = useParams<string>();
@@ -153,6 +153,7 @@ const QuizPreview: React.FC = () => {
 
         await peopleClient.updateUser(updatedUser);
         dispatch(setCurrentUser(updatedUser));
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/results`);
     };
 
     useEffect(() => {
@@ -161,8 +162,20 @@ const QuizPreview: React.FC = () => {
     }, [qid]);
 
     return (
-        <div className="quiz-preview-container">
-            <h3>Quiz Preview</h3>
+        <div>
+            {/* //Display the current date and time*/}
+            <h6>
+                Started: {new Date().toLocaleString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                })}
+            </h6>
+
+            <h3>Quiz Instructions</h3>
+            <hr />
             {quiz.questions.map(
                 (question: any, index: number) =>
                     currentQuestionIndex === index && (
@@ -173,7 +186,8 @@ const QuizPreview: React.FC = () => {
                                     {question.points} pts
                                 </div>
                             </div>
-                            <BaseQuestionPreview
+                            <br />
+                            <BaseQuestionDisplay
                                 question={question}
                                 questionId={question._id}
                                 answer={Object.values(answers).find(
@@ -239,4 +253,4 @@ const QuizPreview: React.FC = () => {
     );
 };
 
-export default QuizPreview;
+export default QuizDisplay;

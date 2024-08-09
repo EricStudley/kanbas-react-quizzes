@@ -1,13 +1,13 @@
 import React from "react";
 
-interface FillInTheBlankPreviewProps {
+interface FillInTheBlankDisplayProps {
     question: any;
     questionId: number;
     answer: string;
     setFillInTheBlankAnswer: (questionId: number, fillInTheBlankAnswer: string) => void;
 }
 
-const FillInTheBlankPreview: React.FC<FillInTheBlankPreviewProps> = ({
+const FillInTheBlankDisplay: React.FC<FillInTheBlankDisplayProps> = ({
     question,
     questionId,
     answer,
@@ -24,4 +24,4 @@ const FillInTheBlankPreview: React.FC<FillInTheBlankPreviewProps> = ({
     );
 };
 
-export default FillInTheBlankPreview;
+export default FillInTheBlankDisplay;
