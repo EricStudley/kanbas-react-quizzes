@@ -3,7 +3,7 @@ import FillInTheBlankEditor from "./FillInTheBlankEditor";
 import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 
-export default function BaseQuestion({
+export default function BaseQuestionEditor({
     question,
     questionIndex,
     saveQuiz,

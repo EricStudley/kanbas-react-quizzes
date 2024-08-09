@@ -1,4 +1,4 @@
-import BaseQuestion from "./Question/BaseQuestion";
+import BaseQuestionEditor from "./Question/BaseQuestionEditor";
 
 export default function QuizDetailsEditor({
     quiz,
@@ -68,7 +68,7 @@ export default function QuizDetailsEditor({
             {quiz.questions &&
                 quiz.questions.map((question: any, index: number) => {
                     return (
-                        <BaseQuestion
+                        <BaseQuestionEditor
                             question={question}
                             questionIndex={index}
                             saveQuiz={() => saveQuiz(quiz)}

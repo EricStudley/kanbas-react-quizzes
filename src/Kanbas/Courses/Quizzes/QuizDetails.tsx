@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Quiz } from "./types";
 import * as client from "./client";
 import { setQuizzes } from "./reducer";
 
@@ -81,7 +80,14 @@ export default function QuizDetails() {
                             Unpublished
                         </button>
                     )}
-                    <button className="btn btn-outline-secondary me-2">
+                    <button
+                        className="btn btn-outline-secondary me-2"
+                        onClick={() =>
+                            navigate(
+                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`
+                            )
+                        }
+                    >
                         Preview
                     </button>
                     <button
@@ -273,7 +279,14 @@ export default function QuizDetails() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="d-flex justify-content-center mt-4">
+                    <div
+                        className="d-flex justify-content-center mt-4"
+                        onClick={() =>
+                            navigate(
+                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`
+                            )
+                        }
+                    >
                         <button className="btn btn-danger">Preview</button>
                     </div>
                 </div>
