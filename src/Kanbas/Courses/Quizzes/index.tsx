@@ -32,7 +32,6 @@ export default function Quizzes() {
         );
     };
 
-
     const fetchQuizzes = async () => {
         let quizzes = await client.findQuizzesForCourse(cid as string);
         if (isStudent) {

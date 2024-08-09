@@ -2,7 +2,7 @@ import BaseQuestionEditor from "./Question/BaseQuestionEditor";
 
 export default function QuizDetailsEditor({
     quiz,
-    saveQuiz,
+    saveOrUpdateQuiz,
     addQuestion,
     removeQuestion,
     setQuestionTitle,
@@ -19,7 +19,7 @@ export default function QuizDetailsEditor({
     setFillInTheBlankAnswerText,
 }: {
     quiz: any;
-    saveQuiz: (quiz: any) => void;
+    saveOrUpdateQuiz: (navigateToQuizList: boolean) => void;
     addQuestion: () => void;
     removeQuestion: (questionIndex: number) => void;
     setQuestionTitle: (questionIndex: number, questionTitle: string) => void;
@@ -71,7 +71,7 @@ export default function QuizDetailsEditor({
                         <BaseQuestionEditor
                             question={question}
                             questionIndex={index}
-                            saveQuiz={() => saveQuiz(quiz)}
+                            saveOrUpdateQuiz={saveOrUpdateQuiz}
                             removeQuestion={removeQuestion}
                             setQuestionTitle={setQuestionTitle}
                             setQuestionType={setQuestionType}

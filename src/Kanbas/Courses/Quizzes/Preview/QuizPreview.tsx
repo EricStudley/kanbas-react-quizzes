@@ -3,10 +3,12 @@ import { useNavigate, useParams } from "react-router";
 import * as client from "../client";
 import BaseQuestionPreview from "./BaseQuestionPreview";
 import "./QuizPreview.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as peopleClient from "../../People/client";
+import { setCurrentUser } from "../../../Account/reducer";
 
 const QuizPreview: React.FC = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cid, qid } = useParams<string>();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -14,6 +16,7 @@ const QuizPreview: React.FC = () => {
         questions: [],
     });
     const [answers, setAnswers] = useState<any>([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     const fetchQuiz = async () => {
         const fetchedQuiz = await client.findQuiz(qid as string);
@@ -149,14 +152,13 @@ const QuizPreview: React.FC = () => {
         };
 
         await peopleClient.updateUser(updatedUser);
+        dispatch(setCurrentUser(updatedUser));
     };
 
     useEffect(() => {
         fetchQuiz();
         fetchAnswers();
     }, [qid]);
-
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     return (
         <div className="quiz-preview-container">

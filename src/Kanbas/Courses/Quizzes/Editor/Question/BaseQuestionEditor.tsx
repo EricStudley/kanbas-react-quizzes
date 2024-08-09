@@ -6,7 +6,7 @@ import TrueFalseEditor from "./TrueFalseEditor";
 export default function BaseQuestionEditor({
     question,
     questionIndex,
-    saveQuiz,
+    saveOrUpdateQuiz,
     removeQuestion,
     setQuestionTitle,
     setQuestionType,
@@ -23,7 +23,7 @@ export default function BaseQuestionEditor({
 }: {
     question: any;
     questionIndex: number;
-    saveQuiz: () => void;
+    saveOrUpdateQuiz: (navigateToQuizList: boolean) => void;
     removeQuestion: (questionIndex: number) => void;
     setQuestionTitle: (questionIndex: number, questionTitle: any) => void;
     setQuestionType: (questionIndex: number, questionType: any) => void;
@@ -145,7 +145,7 @@ export default function BaseQuestionEditor({
             </button>
             <button
                 className="btn btn-danger mt-4"
-                onClick={() => saveQuiz()}
+                onClick={() => saveOrUpdateQuiz(false)}
             >
                 Update Question
             </button>

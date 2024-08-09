@@ -12,7 +12,7 @@ export default function QuizDetailsEditor({
     quiz: any;
     handleChange: (e: any) => void;
     handleDescriptionChange: (value: string) => void;
-    saveOrUpdateQuiz: () => void;
+    saveOrUpdateQuiz: (navigateToQuizList: boolean) => void;
     saveAndPublishQuiz: () => void;
 }) {
     const { cid } = useParams();

@@ -47,13 +47,16 @@ export default function QuizEditor() {
         dispatch(addQuiz(newQuiz));
     };
 
-    const saveOrUpdateQuiz = () => {
+    const saveOrUpdateQuiz = (navigateToQuizList: boolean) => {
         if (qid === "New") {
             createQuiz(quiz);
         } else {
             saveQuiz(quiz);
         }
-        navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+
+        if (navigateToQuizList || qid === "New") {
+            navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+        }
     };
 
     const saveAndPublishQuiz = () => {
@@ -443,7 +446,7 @@ export default function QuizEditor() {
             {activeTab === "questions" && (
                 <QuizQuestionsEditor
                     quiz={quiz}
-                    saveQuiz={saveQuiz}
+                    saveOrUpdateQuiz={saveOrUpdateQuiz}
                     removeQuestion={removeQuestion}
                     setQuestionTitle={setQuestionTitle}
                     setQuestionType={setQuestionType}
@@ -464,7 +467,7 @@ export default function QuizEditor() {
             )}
             <button
                 className="btn btn-danger btn-primary me-2"
-                onClick={saveOrUpdateQuiz}
+                onClick={() => saveOrUpdateQuiz(true)}
             >
                 Save
             </button>
