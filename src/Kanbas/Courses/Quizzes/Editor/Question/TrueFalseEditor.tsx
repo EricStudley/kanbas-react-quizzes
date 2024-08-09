@@ -16,12 +16,15 @@ export default function TrueFalseEditor({
         <div>
             Enter your question and multiple answers, then select the one
             correct answer.
+            <br />
+            <br />
             <h4>Question:</h4>
             <ReactQuill
                 className="border-0 mt-2"
                 value={question.question}
                 onChange={(value) => setQuestionText(questionIndex, value)}
             />
+            <br />
             <h4>Answers:</h4>
             <input
                 type="radio"

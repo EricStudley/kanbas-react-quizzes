@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import * as client from "./../client";
-import { setQuizzes, updateQuiz } from "../reducer";
 import BaseQuestion from "./Question/BaseQuestion";
 
 export default function QuizDetailsEditor({
     quiz,
-    addNewQuestion,
+    saveQuiz,
+    addQuestion,
+    removeQuestion,
     setQuestionTitle,
     setQuestionType,
     setQuestionText,
@@ -22,7 +19,9 @@ export default function QuizDetailsEditor({
     setFillInTheBlankAnswerText,
 }: {
     quiz: any;
-    addNewQuestion: () => void;
+    saveQuiz: (quiz: any) => void;
+    addQuestion: () => void;
+    removeQuestion: (questionIndex: number) => void;
     setQuestionTitle: (questionIndex: number, questionTitle: string) => void;
     setQuestionType: (questionIndex: number, questionType: string) => void;
     setQuestionText: (questionIndex: number, questionText: string) => void;
@@ -61,7 +60,7 @@ export default function QuizDetailsEditor({
             <div className="text-center">
                 <button
                     className="btn btn-primary m-4"
-                    onClick={addNewQuestion}
+                    onClick={addQuestion}
                 >
                     + New Question
                 </button>
@@ -72,6 +71,8 @@ export default function QuizDetailsEditor({
                         <BaseQuestion
                             question={question}
                             questionIndex={index}
+                            saveQuiz={() => saveQuiz(quiz)}
+                            removeQuestion={removeQuestion}
                             setQuestionTitle={setQuestionTitle}
                             setQuestionType={setQuestionType}
                             setQuestionText={setQuestionText}

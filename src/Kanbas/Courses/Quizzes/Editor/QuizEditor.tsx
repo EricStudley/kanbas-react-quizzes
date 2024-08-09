@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateQuiz, addQuiz, setQuizzes } from "../reducer";
 import * as client from "../client";
 import QuizDetailsEditor from "./QuizDetailsEditor";
 import QuizQuestionsEditor from "./QuizQuestionsEditor";
-import { BsQuestionSquare } from "react-icons/bs";
 
 export default function QuizEditor() {
     const navigate = useNavigate();
@@ -345,7 +344,7 @@ export default function QuizEditor() {
         });
     };
 
-    const addNewQuestion = () => {
+    const addQuestion = () => {
         const newQuestion = {
             title: "New Question",
             type: "Multiple Choice",
@@ -374,6 +373,16 @@ export default function QuizEditor() {
         });
     };
 
+    const removeQuestion = (questionIndex: number) => {
+        const newQuiz = {
+            ...quiz,
+            questions: quiz.questions.filter(
+                (question: any, index: number) => index !== questionIndex
+            ),
+        };
+        setQuiz(newQuiz);
+    };
+
     useEffect(() => {
         if (qid !== "New") {
             fetchQuizzes();
@@ -384,9 +393,9 @@ export default function QuizEditor() {
         <div id="wd-quiz-details">
             <div className="row">
                 <div className="col">
-                    {activeTab === "details" && (
-                        <h5 className="float-end me-2">{quiz.published ? "✅ Published" : "🚫 Not Published"}</h5>
-                    )}
+                    <h5 className="float-end me-2">
+                        {quiz.published ? "✅ Published" : "🚫 Not Published"}
+                    </h5>
                     {activeTab === "questions" && (
                         <h5 className="float-end me-2">Points {quiz.points}</h5>
                     )}
@@ -434,11 +443,13 @@ export default function QuizEditor() {
             {activeTab === "questions" && (
                 <QuizQuestionsEditor
                     quiz={quiz}
+                    saveQuiz={saveQuiz}
+                    removeQuestion={removeQuestion}
                     setQuestionTitle={setQuestionTitle}
                     setQuestionType={setQuestionType}
                     setQuestionText={setQuestionText}
                     setQuestionPoints={setQuestionPoints}
-                    addNewQuestion={addNewQuestion}
+                    addQuestion={addQuestion}
                     setMultipleChoiceAnswerCorrect={
                         setMultipleChoiceAnswerCorrect
                     }

@@ -51,7 +51,9 @@ export default function QuizDetails() {
         const quizzes = await client.findQuizzesForCourse(cid as string);
         dispatch(setQuizzes(quizzes));
         const quiz = quizzes.find((q: any) => q._id === qid);
-        setQuiz(quiz);
+        if (quiz) {
+            setQuiz(quiz);
+        }
     };
 
     useEffect(() => {

@@ -32,12 +32,15 @@ export default function MultipleChoiceEditor({
         <div>
             Enter your question and multiple answers, then select the one
             correct answer.
+            <br />
+            <br />
             <h4>Question:</h4>
             <ReactQuill
                 className="border-0 mt-2"
                 value={question.question}
                 onChange={(value) => setQuestionText(questionIndex, value)}
             />
+            <br />
             <h4>Answers:</h4>
             {multipleChoices.map((multipleChoice: any, index: number) => {
                 return (
@@ -82,7 +85,7 @@ export default function MultipleChoiceEditor({
                 );
             })}
             <button
-                className="btn btn-primary mt-2"
+                className="btn btn-secondary mt-2 float-end"
                 onClick={() => addMultipleChoiceAnswer(questionIndex)}
             >
                 + Add Another Answer

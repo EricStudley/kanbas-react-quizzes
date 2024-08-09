@@ -106,8 +106,8 @@ Multiple choice Question Editor:
 ✅* A list of answers is displayed, and a "+Add Another Answer" button exists to add another answer.
     ✅Radio button selection for the correct answer.
     ✅Text input field for the answer itself.
-* Cancel button discards question changes.
-* Update Question button saves question changes.
+✅* Cancel button discards question changes.
+✅* Update Question button saves question changes.
 
 
 True/False Question Editor:
@@ -116,8 +116,8 @@ True/False Question Editor:
     ✅Points - Number input field.
     ✅Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
     ✅True/false - Checkbox or radio buttons to select the correct true/false answer.
-* Cancel button discards question changes.
-* Update Question button saves question changes.
+✅* Cancel button discards question changes.
+✅* Update Question button saves question changes.
 
 
 Fill in the Blank Question Editor:
@@ -126,8 +126,8 @@ Fill in the Blank Question Editor:
     ✅Points - Number input field.
     ✅Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
     ✅Answer - Text input; answers can be case insensitive.
-* Cancel button discards question changes.
-* Update Question button saves question changes.
+✅* Cancel button discards question changes.
+✅* Update Question button saves question changes.
 
 
 Quiz Preview screen:

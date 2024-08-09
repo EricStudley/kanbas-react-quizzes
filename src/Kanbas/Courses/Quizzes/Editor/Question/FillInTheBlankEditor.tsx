@@ -29,12 +29,15 @@ export default function FillInTheBlankEditor({
             Enter your question text, then define all possible correct answers
             for the blank. Students will see the question followed by a small
             text box to type their answer.
+            <br />
+            <br />
             <h4>Question:</h4>
             <ReactQuill
                 className="border-0 mt-2"
                 value={question.question}
                 onChange={(value) => setQuestionText(questionIndex, value)}
             />
+            <br />
             <h4>Answers:</h4>
             {question.fillInTheBlankCorrectAnswers.map(
                 (fillInTheBlankCorrectAnswer: any, index: number) => {

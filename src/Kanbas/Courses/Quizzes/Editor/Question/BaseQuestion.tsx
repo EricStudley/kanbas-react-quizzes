@@ -6,6 +6,8 @@ import TrueFalseEditor from "./TrueFalseEditor";
 export default function BaseQuestion({
     question,
     questionIndex,
+    saveQuiz,
+    removeQuestion,
     setQuestionTitle,
     setQuestionType,
     setQuestionText,
@@ -21,6 +23,8 @@ export default function BaseQuestion({
 }: {
     question: any;
     questionIndex: number;
+    saveQuiz: () => void;
+    removeQuestion: (questionIndex: number) => void;
     setQuestionTitle: (questionIndex: number, questionTitle: any) => void;
     setQuestionType: (questionIndex: number, questionType: any) => void;
     setQuestionText: (questionIndex: number, questionText: string) => void;
@@ -132,6 +136,20 @@ export default function BaseQuestion({
                     setFillInTheBlankAnswerText={setFillInTheBlankAnswerText}
                 />
             )}
+            <br />
+            <button
+                className="btn btn-secondary me-2 mt-4"
+                onClick={() => removeQuestion(questionIndex)}
+            >
+                Cancel
+            </button>
+            <button
+                className="btn btn-danger mt-4"
+                onClick={() => saveQuiz()}
+            >
+                Update Question
+            </button>
+            <br />
             <br />
         </div>
     );
