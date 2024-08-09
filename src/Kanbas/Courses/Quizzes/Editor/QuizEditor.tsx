@@ -54,7 +54,7 @@ export default function QuizEditor() {
         } else {
             saveQuiz(quiz);
         }
-        // navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+        navigate(`/Kanbas/Courses/${cid}/Quizzes`);
     };
 
     const saveAndPublishQuiz = () => {

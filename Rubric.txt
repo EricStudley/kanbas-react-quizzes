@@ -16,16 +16,16 @@ Courses Per User:
 
 Quiz List screen:
 ✅* The course navigation sidebar contains a Quizzes section. When clicked, the user is navigated to the Quizzes List screen.
-* The Quizzes List screen displays the quizzes for the selected course. Each course has a separate list of quizzes.
-* The Quizzes List screen is empty by default. An add quiz (+ Quiz) button is present at the top right to create a new quiz.
+✅* The Quizzes List screen displays the quizzes for the selected course. Each course has a separate list of quizzes.
+✅* The Quizzes List screen is empty by default. An add quiz (+ Quiz) button is present at the top right to create a new quiz.
 ✅* Clicking on the add quiz button creates a new quiz and proceeds to the Quiz Details Editor screen for the new quiz.
-* For existing quizzes on the Quizzes List screen, clicking the context menu button (3 dots) reveals the Quiz Context Menu with options: Edit, Delete, and Publish.
+✅* For existing quizzes on the Quizzes List screen, clicking the context menu button (3 dots) reveals the Quiz Context Menu with options: Edit, Delete, and Publish.
     ✅Clicking Edit navigates to Quiz Details screen.
     ✅Clicking Delete removes the quiz from the list and stays on the Quizzes List screen
-    Clicking Publish publishes the quiz, making it available to students, and the Publish option becomes Unpublish, which performs the opposite action.
-* Newly created quizzes are unpublished by default and unavailable to students. This is depicted by an Unpublished symbol 🚫.
-* Clicking the Unpublished button publishes the quiz, making it available to students. This is depicted by the Published symbol ✅.
-* Clicking the quiz title in the Quizzes List navigates to Quiz Details screen.
+    ✅Clicking Publish publishes the quiz, making it available to students, and the Publish option becomes Unpublish, which performs the opposite action.
+✅* Newly created quizzes are unpublished by default and unavailable to students. This is depicted by an Unpublished symbol 🚫.
+✅* Clicking the Unpublished button publishes the quiz, making it available to students. This is depicted by the Published symbol ✅.
+✅* Clicking the quiz title in the Quizzes List navigates to Quiz Details screen.
 * The following information is shown for each quiz in the Quizzes List:
     ✅Availability:
         ✅"Closed" is displayed if the current date is after quizzes Available Until Date.
@@ -79,54 +79,53 @@ Quiz Details Editor screen:
     ✅Due date - date the assignment is due, date input.
     ✅Available date - date assignment is available, date input.
     ✅Until date - date assignment is available until, date input.
-* ✅Clicking the Save button saves changes and navigates back to Quiz Details screen.
-* Clicking the Save and Publish button saves & publishes quiz and navigates back to Quiz List screen.
-* ✅Clicking the Cancel button doesn’t save and navigates back to Quiz List screen.
+✅* Clicking the Save button saves changes and navigates back to Quiz Details screen.
+✅*  the Save and Publish button saves & publishes quiz and navigates back to Quiz List screen.
+✅* Clicking the Cancel button doesn’t save and navigates back to Quiz List screen.
 
 
 Quiz Questions Editor screen:
-* Displays list of questions for this quiz. List is initially empty.
-* Clicking the New Question button adds question at bottom of list. The Multiple Choice question is default.
-* New questions are displayed in edit preview mode by default.
+✅* Displays list of questions for this quiz. List is initially empty.
+✅* Clicking the New Question button adds question at bottom of list. The Multiple Choice question is default.
+✅* New questions are displayed in edit preview mode by default.
 * Clicking the Edit button displays question in edit mode.
-* After creating a new quiz, a dropdown with the question type exists with the following options:
-    True/false,
-    Multiple choice question
-    Fill in multiple blanks question
+✅* After creating a new quiz, a dropdown with the question type exists with the following options:
+    ✅True/false,
+    ✅Multiple choice question
+    ✅Fill in multiple blanks question
 * Points shows sum of all the points of each question.
-* Clicking Cancel button dismisses the edits
-* Clicking Save saves the edits but does not publish the quiz
+✅* Clicking Cancel button dismisses the edits
+✅* Clicking Save saves the edits but does not publish the quiz
 
 
 Multiple choice Question Editor:
-* The following options are editable on the Multiple Choice Question Editor:
-    Title - Text input field.
-    Points - Number input field.
-    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
-* A list of answers is displayed, and a "+Add Another Answer" button exists to add another answer.
-    Radio button selection for the correct answer.
-    Text input field for the answer itself.
+✅* The following options are editable on the Multiple Choice Question Editor:
+    ✅Title - Text input field.
+    ✅Points - Number input field.
+    ✅Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+✅* A list of answers is displayed, and a "+Add Another Answer" button exists to add another answer.
+    ✅Radio button selection for the correct answer.
+    ✅Text input field for the answer itself.
 * Cancel button discards question changes.
 * Update Question button saves question changes.
 
 
 True/False Question Editor:
-* The following options are editable on the True/False Question Editor:
-    Title - Text input field.
-    Points - Number input field.
-    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
-    True/false - Checkbox or radio buttons to select the correct true/false answer.
+✅* The following options are editable on the True/False Question Editor:
+    ✅Title - Text input field.
+    ✅Points - Number input field.
+    ✅Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+    ✅True/false - Checkbox or radio buttons to select the correct true/false answer.
 * Cancel button discards question changes.
 * Update Question button saves question changes.
 
 
 Fill in the Blank Question Editor:
-
-* The following options are editable on the Fill in the Blank Question Editor:
-    Title - Text input field.
-    Points - Number input field.
-    Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
-    Answer - Text input; answers can be case insensitive.
+✅* The following options are editable on the Fill in the Blank Question Editor:
+    ✅Title - Text input field.
+    ✅Points - Number input field.
+    ✅Question - WYSIWYG text input field with at least bold, italic, underline, list, and headings.
+    ✅Answer - Text input; answers can be case insensitive.
 * Cancel button discards question changes.
 * Update Question button saves question changes.
 

@@ -21,6 +21,18 @@ export default function Quizzes() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const isStudent = currentUser.role === "STUDENT";
 
+    const setPublished = async (qid: string, published: boolean) => {
+        const quiz = quizzes.find((q: any) => q._id === qid);
+        const updatedQuiz = { ...quiz, published };
+        await client.updateQuiz(updatedQuiz);
+        dispatch(
+            setQuizzes(
+                quizzes.map((q: any) => (q._id === qid ? updatedQuiz : q))
+            )
+        );
+    };
+
+
     const fetchQuizzes = async () => {
         let quizzes = await client.findQuizzesForCourse(cid as string);
         if (isStudent) {
@@ -129,9 +141,14 @@ export default function Quizzes() {
                                     </div>
                                     {!isStudent && (
                                         <div className="ms-auto d-flex align-items-center">
-                                            <GreenCheckmark />
+                                            {!quiz.published && <div>🚫</div>}
+                                            {quiz.published && (
+                                                <GreenCheckmark />
+                                            )}
                                             <QuizContextDropdown
                                                 qid={quiz._id}
+                                                published={quiz.published}
+                                                setPublished={setPublished}
                                             />
                                         </div>
                                     )}

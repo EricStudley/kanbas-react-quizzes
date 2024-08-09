@@ -11,7 +11,7 @@ export default function QuizDetails() {
     const { cid, qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const [quiz, setQuiz] = useState<any>({
-        name: "New Quiz",   
+        name: "New Quiz",
         course: "",
         description: "",
         quizType: "Graded Quiz",
@@ -33,8 +33,20 @@ export default function QuizDetails() {
         dueDate: "",
         availableDate: "",
         untilDate: "",
+        questions: [],
     });
-    
+
+    const setPublished = async (published: boolean) => {
+        const updatedQuiz = { ...quiz, published };
+        await client.updateQuiz(updatedQuiz);
+        dispatch(
+            setQuizzes(
+                quizzes.map((q: any) => (q._id === qid ? updatedQuiz : q))
+            )
+        );
+        setQuiz(updatedQuiz);
+    };
+
     const fetchQuizzes = async () => {
         const quizzes = await client.findQuizzesForCourse(cid as string);
         dispatch(setQuizzes(quizzes));
@@ -53,11 +65,17 @@ export default function QuizDetails() {
             <div className="d-flex justify-content-end align-items-center mb-4">
                 <div>
                     {quiz.published ? (
-                        <button className="btn btn-success me-2">
+                        <button
+                            className="btn btn-success me-2"
+                            onClick={() => setPublished(false)}
+                        >
                             Published
                         </button>
                     ) : (
-                        <button className="btn btn-danger me-2">
+                        <button
+                            className="btn btn-danger me-2"
+                            onClick={() => setPublished(true)}
+                        >
                             Unpublished
                         </button>
                     )}
