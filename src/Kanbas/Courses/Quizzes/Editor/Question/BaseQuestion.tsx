@@ -132,7 +132,7 @@ export default function BaseQuestion({
                     setFillInTheBlankAnswerText={setFillInTheBlankAnswerText}
                 />
             )}
-            <hr />
+            <br />
         </div>
     );
 }
