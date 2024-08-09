@@ -1,44 +1,54 @@
-import { useEffect } from "react";
-import MultipleChoicePreview from "./MultipleChoicePreview";
-import TrueFalsePreview from "./TrueFalsePreview";
-import FillInTheBlankPreview from "./FillInTheBlankPreview";
+import React from 'react';
+import MultipleChoicePreview from './MultipleChoicePreview';
+import TrueFalsePreview from './TrueFalsePreview';
+import FillInTheBlankPreview from './FillInTheBlankPreview';
 
-export default function BaseQuestioPreview({
-    question,
-    questionIndex,
-}: {
+interface BaseQuestionPreviewProps {
     question: any;
     questionIndex: number;
-}) {
-    const isMultipleChoice = question.type === "Multiple Choice";
-    const isTrueFalse = question.type === "True/False";
-    const isFillInTheBlank = question.type === "Fill in the Blank";
+    answer: any;
+    onAnswerChange: (answer: any) => void;
+}
+
+const BaseQuestionPreview: React.FC<BaseQuestionPreviewProps> = ({
+    question,
+    questionIndex,
+    answer,
+    onAnswerChange,
+}) => {
+    const isMultipleChoice = question.type === 'Multiple Choice';
+    const isTrueFalse = question.type === 'True/False';
+    const isFillInTheBlank = question.type === 'Fill in the Blank';
+
     return (
-        <div className="container mb-5 border">
-            <div className="d-flex align-items-center mt-3">
-                <h4 className="me-2">Question {questionIndex + 1}</h4>
-            </div>
-            <hr />
+        <div className="question-container mb-5 p-3 border rounded">
+            <div className="question-text" dangerouslySetInnerHTML={{ __html: question.question }} />
             {isMultipleChoice && (
                 <MultipleChoicePreview
                     question={question}
                     questionIndex={questionIndex}
+                    answer={answer}
+                    onAnswerChange={onAnswerChange}
                 />
             )}
             {isTrueFalse && (
                 <TrueFalsePreview
                     question={question}
                     questionIndex={questionIndex}
+                    answer={answer}
+                    onAnswerChange={onAnswerChange}
                 />
             )}
             {isFillInTheBlank && (
                 <FillInTheBlankPreview
                     question={question}
                     questionIndex={questionIndex}
+                    answer={answer}
+                    onAnswerChange={onAnswerChange}
                 />
             )}
-            <br />
-            <br />
         </div>
     );
-}
+};
+
+export default BaseQuestionPreview;

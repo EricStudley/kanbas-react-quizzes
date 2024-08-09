@@ -31,3 +31,15 @@ export const findQuizzesForCourse = async (courseId: string) => {
     const response = await axios.get(`${COURSES_API}/${courseId}/quizzes`);
     return response.data;
 };
+
+// user answers for a specific quiz
+export const getUserAnswers = async (quizId: string) => {
+    const response = await axios.get(`${QUIZZES_API}/${quizId}/answers`);
+    return response.data;
+};
+
+// submit the quiz and get the score
+export const submitQuiz = async (quizId: string, answers: any) => {
+    const response = await axios.post(`${QUIZZES_API}/${quizId}/submit`, { answers });
+    return response.data;
+};

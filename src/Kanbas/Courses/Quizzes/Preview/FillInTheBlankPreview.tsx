@@ -1,13 +1,27 @@
-export default function FillInTheBlankPreview({
-    question,
-    questionIndex,
-}: {
+import React from 'react';
+
+interface FillInTheBlankPreviewProps {
     question: any;
     questionIndex: number;
-}) {
+    answer: any;
+    onAnswerChange: (answer: any) => void;
+}
+
+const FillInTheBlankPreview: React.FC<FillInTheBlankPreviewProps> = ({
+    question,
+    questionIndex,
+    answer,
+    onAnswerChange,
+}) => {
     return (
         <div>
-            <h4>Fill in the Blank</h4>
+            <input
+                type="text"
+                value={answer}
+                onChange={(e) => onAnswerChange(e.target.value)}
+            />
         </div>
     );
-}
+};
+
+export default FillInTheBlankPreview;
