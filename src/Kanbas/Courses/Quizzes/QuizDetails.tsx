@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Quiz } from "./types";
+import { useDispatch, useSelector } from "react-redux";
+import * as client from "./client";
+import { setQuizzes } from "./reducer";
 
 export default function QuizDetails() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { qid } = useParams<{ qid: string }>();
+    const { cid, qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const [quiz, setQuiz] = useState<any>({
         name: "New Quiz",
@@ -30,27 +32,62 @@ export default function QuizDetails() {
         dueDate: "",
         availableDate: "",
         untilDate: "",
+        questions: [],
     });
+
+    const setPublished = async (published: boolean) => {
+        const updatedQuiz = { ...quiz, published };
+        await client.updateQuiz(updatedQuiz);
+        dispatch(
+            setQuizzes(
+                quizzes.map((q: any) => (q._id === qid ? updatedQuiz : q))
+            )
+        );
+        setQuiz(updatedQuiz);
+    };
+
+    const fetchQuizzes = async () => {
+        const quizzes = await client.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+        const quiz = quizzes.find((q: any) => q._id === qid);
+        if (quiz) {
+            setQuiz(quiz);
+        }
+    };
+
     useEffect(() => {
         if (qid !== "New") {
-            const q = quizzes.find((q: any) => q._id === qid);
-            setQuiz(q);
+            fetchQuizzes();
         }
     }, [qid]);
+
     return (
         <div className="quiz-details mt-2">
             <div className="d-flex justify-content-end align-items-center mb-4">
                 <div>
                     {quiz.published ? (
-                        <button className="btn btn-success me-2">
+                        <button
+                            className="btn btn-success me-2"
+                            onClick={() => setPublished(false)}
+                        >
                             Published
                         </button>
                     ) : (
-                        <button className="btn btn-danger me-2">
+                        <button
+                            className="btn btn-danger me-2"
+                            onClick={() => setPublished(true)}
+                        >
                             Unpublished
                         </button>
                     )}
-                    <button className="btn btn-outline-secondary me-2">
+                    <button
+                        className="btn btn-outline-secondary me-2"
+                        onClick={() =>
+                            navigate(
+                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`
+                            )
+                        }
+                    >
                         Preview
                     </button>
                     <button
@@ -136,7 +173,9 @@ export default function QuizDetails() {
                                             Show Correct Answers
                                         </td>
                                         <td className="text-start">
-                                            {quiz.showCorrectAnswers ? "Yes" : "No"}
+                                            {quiz.showCorrectAnswers
+                                                ? "Yes"
+                                                : "No"}
                                         </td>
                                     </tr>
                                     <tr>
@@ -240,7 +279,14 @@ export default function QuizDetails() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="d-flex justify-content-center mt-4">
+                    <div
+                        className="d-flex justify-content-center mt-4"
+                        onClick={() =>
+                            navigate(
+                                `/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`
+                            )
+                        }
+                    >
                         <button className="btn btn-danger">Preview</button>
                     </div>
                 </div>

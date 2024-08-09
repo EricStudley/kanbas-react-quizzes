@@ -2,7 +2,7 @@ import { FaPlus } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import { IoMdMore } from "react-icons/io";
 
-export default function QuizzesControls({ student }: { student: boolean }) {
+export default function QuizzesControls({ isStudent }: { isStudent: boolean }) {
     const { cid } = useParams();
     return (
         <div
@@ -17,7 +17,7 @@ export default function QuizzesControls({ student }: { student: boolean }) {
                     placeholder="Search for Quiz"
                 />
             </div>
-            {!student && (
+            {!isStudent && (
                 <div>
                     <Link to={`/Kanbas/Courses/${cid}/Quizzes/New/edit`}>
                         <button

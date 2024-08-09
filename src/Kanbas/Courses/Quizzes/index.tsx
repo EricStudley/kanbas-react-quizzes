@@ -7,10 +7,9 @@ import { RxRocket } from "react-icons/rx";
 
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import * as client from "./client";
-import * as accountClient from "../../Account/client";
 import { setQuizzes } from "./reducer";
 
 import "./index.css";
@@ -18,24 +17,38 @@ import "./index.css";
 export default function Quizzes() {
     const dispatch = useDispatch();
     const { cid } = useParams();
-    const [role, setRole] = useState("");
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const isStudent = currentUser.role === "STUDENT";
+
+    const setPublished = async (qid: string, published: boolean) => {
+        const quiz = quizzes.find((q: any) => q._id === qid);
+        const updatedQuiz = { ...quiz, published };
+        await client.updateQuiz(updatedQuiz);
+        dispatch(
+            setQuizzes(
+                quizzes.map((q: any) => (q._id === qid ? updatedQuiz : q))
+            )
+        );
+    };
+
+
     const fetchQuizzes = async () => {
-        const quizzes = await client.findQuizzesForCourse(cid as string);
+        let quizzes = await client.findQuizzesForCourse(cid as string);
+        if (isStudent) {
+            quizzes = quizzes.filter((quiz: any) => quiz.published);
+        }
         dispatch(setQuizzes(quizzes));
     };
-    const fetchRole = async () => {
-        const account = await accountClient.profile();
-        setRole(account.role);
-    };
+
     useEffect(() => {
         fetchQuizzes();
-        fetchRole();
     }, []);
+
     return (
         <div id="wd-quizzes">
             <br />
-            <QuizzesControls student={role === "STUDENT"} />
+            <QuizzesControls isStudent={isStudent} />
             <hr />
             <ul id="wd-quizzes" className="list-group rounded-0">
                 <li className="wd-quizzes list-group-item p-0 mb-5 fs-5 border-gray">
@@ -64,7 +77,10 @@ export default function Quizzes() {
                             const isAvailable = currentDate > availableDate;
 
                             return (
-                                <li className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex align-items-center">
+                                <li
+                                    key={quiz._id}
+                                    className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex align-items-center"
+                                >
                                     <RxRocket
                                         className="me-4 ms-4 fs-3 "
                                         style={{ color: "green" }}
@@ -120,14 +136,19 @@ export default function Quizzes() {
                                             minute: "numeric",
                                             hour12: true,
                                         })}{" "}
-                                        | {quiz.points} pts | {quiz.questions}{" "}
-                                        Questions
+                                        | {quiz.points} pts |{" "}
+                                        {quiz.questions.length} Questions
                                     </div>
-                                    {role !== "STUDENT" && (
+                                    {!isStudent && (
                                         <div className="ms-auto d-flex align-items-center">
-                                            <GreenCheckmark />
+                                            {!quiz.published && <div>🚫</div>}
+                                            {quiz.published && (
+                                                <GreenCheckmark />
+                                            )}
                                             <QuizContextDropdown
                                                 qid={quiz._id}
+                                                published={quiz.published}
+                                                setPublished={setPublished}
                                             />
                                         </div>
                                     )}

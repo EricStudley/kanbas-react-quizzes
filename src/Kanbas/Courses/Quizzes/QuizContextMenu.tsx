@@ -5,14 +5,24 @@ import { useParams } from "react-router";
 import * as client from "./client";
 import { deleteQuiz } from "./reducer";
 
-export default function QuizContextDropdown({ qid }: { qid: string }) {
+export default function QuizContextDropdown({
+    qid,
+    published,
+    setPublished,
+}: {
+    qid: string;
+    published: boolean;
+    setPublished: (qid: string, published: boolean) => void;
+}) {
     const dispatch = useDispatch();
     const { cid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+
     const removeQuiz = async (qid: string) => {
         const status = await client.deleteQuiz(qid);
         dispatch(deleteQuiz(qid));
     };
+
     return (
         <div className="dropdown d-inline me-1 float-end">
             <button
@@ -43,8 +53,9 @@ export default function QuizContextDropdown({ qid }: { qid: string }) {
                     </a>
                 </li>
                 <li>
-                    <a id="wd-publish-quiz" className="dropdown-item">
-                        Publish
+                    <a id="wd-publish-quiz" className="dropdown-item"
+                        onClick={() => setPublished(qid, !published)}>
+                        {published ? "Unpublish" : "Publish"}
                     </a>
                 </li>
                 <li>
