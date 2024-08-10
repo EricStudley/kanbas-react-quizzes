@@ -439,8 +439,6 @@ export default function QuizEditor() {
                     quiz={quiz}
                     handleChange={handleChange}
                     handleDescriptionChange={handleDescriptionChange}
-                    saveOrUpdateQuiz={saveOrUpdateQuiz}
-                    saveAndPublishQuiz={saveAndPublishQuiz}
                 />
             )}
             {activeTab === "questions" && (

@@ -1,22 +1,15 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useNavigate, useParams } from "react-router";
 
 export default function QuizDetailsEditor({
     quiz,
     handleChange,
     handleDescriptionChange,
-    saveOrUpdateQuiz,
-    saveAndPublishQuiz,
 }: {
     quiz: any;
     handleChange: (e: any) => void;
     handleDescriptionChange: (value: string) => void;
-    saveOrUpdateQuiz: (navigateToQuizList: boolean) => void;
-    saveAndPublishQuiz: () => void;
 }) {
-    const { cid } = useParams();
-    const navigate = useNavigate();
     return (
         <div className="tab-content mt-3">
             <div className="mb-3">
@@ -81,8 +74,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.shuffleAnswers}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     Shuffle Answers
                 </label>
             </div>
@@ -103,8 +95,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.multipleAttempts}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     Multiple Attempts
                 </label>
             </div>
@@ -127,8 +118,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.showCorrectAnswers}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     Show Correct Answers
                 </label>
             </div>
@@ -149,8 +139,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.oneQuestionAtATime}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     One Question at a Time
                 </label>
             </div>
@@ -161,8 +150,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.webcamRequired}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     Webcam Required
                 </label>
             </div>
@@ -173,8 +161,7 @@ export default function QuizDetailsEditor({
                         type="checkbox"
                         checked={quiz.lockQuestions}
                         onChange={handleChange}
-                    />
-                    {" "}
+                    />{" "}
                     Lock Questions After Answering
                 </label>
             </div>
@@ -182,7 +169,7 @@ export default function QuizDetailsEditor({
                 <label>Due Date</label>
                 <input
                     name="dueDate"
-                    type="date"
+                    type="datetime-local"
                     value={quiz.dueDate}
                     onChange={handleChange}
                     className="form-control"
@@ -192,7 +179,7 @@ export default function QuizDetailsEditor({
                 <label>Available Date</label>
                 <input
                     name="availableDate"
-                    type="date"
+                    type="datetime-local"
                     value={quiz.availableDate}
                     onChange={handleChange}
                     className="form-control"
@@ -202,7 +189,7 @@ export default function QuizDetailsEditor({
                 <label>Until Date</label>
                 <input
                     name="untilDate"
-                    type="date"
+                    type="datetime-local"
                     value={quiz.untilDate}
                     onChange={handleChange}
                     className="form-control"
