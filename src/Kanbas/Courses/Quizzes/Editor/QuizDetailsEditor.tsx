@@ -82,6 +82,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.shuffleAnswers}
                         onChange={handleChange}
                     />
+                    {" "}
                     Shuffle Answers
                 </label>
             </div>
@@ -103,6 +104,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.multipleAttempts}
                         onChange={handleChange}
                     />
+                    {" "}
                     Multiple Attempts
                 </label>
             </div>
@@ -126,6 +128,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.showCorrectAnswers}
                         onChange={handleChange}
                     />
+                    {" "}
                     Show Correct Answers
                 </label>
             </div>
@@ -147,6 +150,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.oneQuestionAtATime}
                         onChange={handleChange}
                     />
+                    {" "}
                     One Question at a Time
                 </label>
             </div>
@@ -158,6 +162,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.webcamRequired}
                         onChange={handleChange}
                     />
+                    {" "}
                     Webcam Required
                 </label>
             </div>
@@ -169,6 +174,7 @@ export default function QuizDetailsEditor({
                         checked={quiz.lockQuestions}
                         onChange={handleChange}
                     />
+                    {" "}
                     Lock Questions After Answering
                 </label>
             </div>

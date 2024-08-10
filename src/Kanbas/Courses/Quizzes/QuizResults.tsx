@@ -142,7 +142,7 @@ export default function QuizResults() {
                     📝 You answered {correctAnswers} questions correctly.
                 </div>
             </div>
-            {quizAttempts >= quizAttemptsLimit &&
+            {(quizAttempts >= quizAttemptsLimit || !isStudent) &&
                 quiz.questions.map((question: any, index: number) => (
                     <div className="quiz-preview-question" key={index}>
                         <div className="d-flex justify-content-between align-items-center">
