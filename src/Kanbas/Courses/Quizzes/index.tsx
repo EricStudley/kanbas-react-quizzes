@@ -7,7 +7,7 @@ import { RxRocket } from "react-icons/rx";
 
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import * as client from "./client";
 import { setQuizzes } from "./reducer";
@@ -20,6 +20,8 @@ export default function Quizzes() {
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const isStudent = currentUser.role === "STUDENT";
+    const [quizAttempts, setQuizAttempts] = useState<any>({});
+    const [quizScores, setQuizScores] = useState<any>({});
 
     const setPublished = async (qid: string, published: boolean) => {
         const quiz = quizzes.find((q: any) => q._id === qid);
@@ -32,13 +34,28 @@ export default function Quizzes() {
         );
     };
 
-
     const fetchQuizzes = async () => {
         let quizzes = await client.findQuizzesForCourse(cid as string);
         if (isStudent) {
             quizzes = quizzes.filter((quiz: any) => quiz.published);
         }
         dispatch(setQuizzes(quizzes));
+
+        const quizAttempts: { [key: string]: any } = {};
+        currentUser.quizAnswers.forEach((quizAnswer: any) => {
+            quizAttempts[quizAnswer.quizId] = quizAnswer.attempts;
+        });
+
+        setQuizAttempts(quizAttempts);
+
+        const quizScores: { [key: string]: any } = {};
+        currentUser.quizAnswers.forEach((quizAnswer: any) => {
+            quizScores[quizAnswer.quizId] = quizAnswer.score;
+        });
+
+        setQuizScores(quizScores);
+
+        console.log(quizScores);
     };
 
     useEffect(() => {
@@ -75,6 +92,8 @@ export default function Quizzes() {
                             const availableDate = new Date(quiz.availableDate);
                             const isClosed = currentDate > dueDate;
                             const isAvailable = currentDate > availableDate;
+                            const attempts = quizAttempts[quiz._id] || 0;
+                            const score = quizScores[quiz._id] || 0;
 
                             return (
                                 <li
@@ -88,7 +107,11 @@ export default function Quizzes() {
                                     <div>
                                         <a
                                             className="wd-assignment-link"
-                                            href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`}
+                                            href={
+                                                attempts > 0
+                                                    ? `#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}/results`
+                                                    : `#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`
+                                            }
                                             style={{
                                                 color: "#212529",
                                                 fontWeight: "bold",
@@ -138,6 +161,13 @@ export default function Quizzes() {
                                         })}{" "}
                                         | {quiz.points} pts |{" "}
                                         {quiz.questions.length} Questions
+                                        {score > 0 && isStudent && (
+                                            <span>
+                                                {" "}
+                                                |{" "}
+                                                <strong>Score: {score}</strong>
+                                            </span>
+                                        )}
                                     </div>
                                     {!isStudent && (
                                         <div className="ms-auto d-flex align-items-center">

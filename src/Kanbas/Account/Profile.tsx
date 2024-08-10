@@ -38,14 +38,6 @@ export default function Profile() {
                     <input
                         className="wd-username form-control mb-2"
                         value={profile.username}
-                        onChange={(e) => {
-                            const updatedProfile = {
-                                ...profile,
-                                username: e.target.value,
-                            };
-                            setProfile(updatedProfile);
-                            updateUser(updatedProfile);
-                        }}
                     />
                     <input
                         className="wd-password form-control mb-2"

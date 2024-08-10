@@ -34,7 +34,7 @@ Quiz List screen:
     ✅Due date
     ✅Points
     ✅Number of questions
-    Score is shown if the user is a Student; only the last score received is shown.
+    ✅Score is shown if the user is a Student; only the last score received is shown.
 
 
 Quiz Details screen:
@@ -54,8 +54,8 @@ Quiz Details screen:
     ✅Due date - Date the assignment is due.
     ✅Available date - Date assignment is available.
     ✅Until date - Date assignment is available until.
-* The Preview button navigates to Quiz Preview screen.
-* ✅The Edit button navigates to Quiz Editor screen.
+✅* The Preview button navigates to Quiz Preview screen.
+✅* The Edit button navigates to Quiz Editor screen.
 
 
 Quiz Details Editor screen:
@@ -88,7 +88,7 @@ Quiz Questions Editor screen:
 ✅* Displays list of questions for this quiz. List is initially empty.
 ✅* Clicking the New Question button adds question at bottom of list. The Multiple Choice question is default.
 ✅* New questions are displayed in edit preview mode by default.
-* Clicking the Edit button displays question in edit mode.
+✅* Clicking the Edit button displays question in edit mode.
 ✅* After creating a new quiz, a dropdown with the question type exists with the following options:
     ✅True/false,
     ✅Multiple choice question
@@ -131,25 +131,25 @@ Fill in the Blank Question Editor:
 
 
 Quiz Preview screen:
-* Displays the quiz as students would see the quiz. 
-* All questions in quiz are displayed.
-* Each question is rendered in the format based on their type.
-* Faculty can answer the quiz.
-* When faculty submits the quiz, the answers are saved for that quiz.
-* The preview shows previous answers by faculty to the quiz.
-* The final score for the quiz is calculated.
+✅* Displays the quiz as students would see the quiz. 
+✅* All questions in quiz are displayed.
+✅* Each question is rendered in the format based on their type.
+✅* Faculty can answer the quiz.
+✅* When faculty submits the quiz, the answers are saved for that quiz.
+✅* The preview shows previous answers by faculty to the quiz.
+✅* The final score for the quiz is calculated.
 
 
 Quiz screen:
-* Answers to the quiz are stored per student.
-* The following data is persisted between sessions:
-    Most previous answers given to the quiz.
-    Score for the most previous attempt.
-* Correct answers are highlighted as green, or given a checkmark.
-* Incorrect answers are highlighted as red, or given an X mark.
-* Students are unable to change the answers of a quiz that has been taken previously.
-* The test can be repeated if Multiple Attempts property is true, up to the amount specified by the How Many Attempts property.
-* The How Many Attempts property determines the amount each student can take a quiz.
-* The correct answers are shown if the following are true
-    Student has made at least one attempt.
-    Student has exhausted their attempts specified by the How Many Attempts property.
+✅* Answers to the quiz are stored per student.
+✅* The following data is persisted between sessions:
+    ✅Most previous answers given to the quiz.
+    ✅Score for the most previous attempt.
+✅* Correct answers are highlighted as green, or given a checkmark.
+✅* Incorrect answers are highlighted as red, or given an X mark.
+✅* Students are unable to change the answers of a quiz that has been taken previously.
+✅* The test can be repeated if Multiple Attempts property is true, up to the amount specified by the How Many Attempts property.
+✅* The How Many Attempts property determines the amount each student can take a quiz.
+✅* The correct answers are shown if the following are true
+    ✅Student has made at least one attempt.
+    ✅Student has exhausted their attempts specified by the How Many Attempts property.
