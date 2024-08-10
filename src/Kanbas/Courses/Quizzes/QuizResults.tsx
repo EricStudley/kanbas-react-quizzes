@@ -1,24 +1,37 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 import * as client from "./client";
+import * as peopleClient from "./../People/client";
 import BaseQuestionDisplay from "./Display/BaseQuestionDisplay";
+import { setCurrentUser } from "../../Account/reducer";
 
 export default function QuizResults() {
-    const { qid } = useParams<string>();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { cid, qid } = useParams<string>();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const isStudent = currentUser.role === "Student";
+    const isStudent = currentUser.role === "STUDENT";
     const [score, setScore] = useState(0);
     const [totalPossibleScore, setTotalPossibleScore] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [answers, setAnswers] = useState<any>([]);
     const [quiz, setQuiz] = useState<any>({
+        attempts: 1,
         questions: [],
     });
+    const [quizAttempts, setQuizAttempts] = useState(0);
+    const [quizAttemptsLimit, setQuizAttemptsLimit] = useState(1);
 
     const fetchQuiz = async () => {
         const fetchedQuiz = await client.findQuiz(qid as string);
         setQuiz(fetchedQuiz);
+
+        if (fetchedQuiz.attempts) {
+            setQuizAttemptsLimit(fetchedQuiz.attempts);
+        } else {
+            setQuizAttemptsLimit(1);
+        }
     };
 
     const fetchAnswers = async () => {
@@ -28,6 +41,9 @@ export default function QuizResults() {
 
         if (fetchedQuizAnswers) {
             setAnswers(fetchedQuizAnswers.answers);
+
+            const quizAttempts = fetchedQuizAnswers.attempts;
+            setQuizAttempts(quizAttempts);
         } else {
             setAnswers([]);
         }
@@ -82,6 +98,24 @@ export default function QuizResults() {
             }
         }
 
+        const quizAnswers = currentUser.quizAnswers.map((quizAnswer: any) => {
+            if (quizAnswer.quizId === qid) {
+                return {
+                    ...quizAnswer,
+                    score,
+                };
+            }
+            return quizAnswer;
+        });
+
+        const updatedUser = {
+            ...currentUser,
+            quizAnswers,
+        };
+
+        await peopleClient.updateUser(updatedUser);
+        dispatch(setCurrentUser(updatedUser));
+
         setScore(score);
         setCorrectAnswers(correctAnswers);
         setTotalPossibleScore(totalPossibleScore);
@@ -108,28 +142,52 @@ export default function QuizResults() {
                     📝 You answered {correctAnswers} questions correctly.
                 </div>
             </div>
-            {quiz.questions.map((question: any, index: number) => (
-                <div className="quiz-preview-question" key={index}>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <h4 className="mb-0">Question {index + 1}</h4>
-                        <div className="quiz-preview-question-points">
-                            {question.points} pts
+            {quizAttempts >= quizAttemptsLimit &&
+                quiz.questions.map((question: any, index: number) => (
+                    <div className="quiz-preview-question" key={index}>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <h4 className="mb-0">Question {index + 1}</h4>
+                            <div className="quiz-preview-question-points">
+                                {question.points} pts
+                            </div>
                         </div>
+                        <br />
+                        <BaseQuestionDisplay
+                            question={question}
+                            questionId={question._id}
+                            selectedAnswer={Object.values(answers).find(
+                                (answer: any) =>
+                                    answer.questionId === question._id
+                            )}
+                            setMultipleChoiceAnswerIndex={() => {}}
+                            setTrueFalseAnswer={() => {}}
+                            setFillInTheBlankAnswer={() => {}}
+                            resultMode={true}
+                        />
                     </div>
-                    <br />
-                    <BaseQuestionDisplay
-                        question={question}
-                        questionId={question._id}
-                        selectedAnswer={Object.values(answers).find(
-                            (answer: any) => answer.questionId === question._id
-                        )}
-                        setMultipleChoiceAnswerIndex={() => {}}
-                        setTrueFalseAnswer={() => {}}
-                        setFillInTheBlankAnswer={() => {}}
-                        resultMode={true}
-                    />
+                ))}
+            {quizAttempts < quizAttemptsLimit && (
+                <div className="d-flex justify-content-center mt-4 mb-4">
+                    <button
+                        className="btn btn-primary"
+                        onClick={() =>
+                            navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}`)
+                        }
+                    >
+                        Retake Quiz
+                    </button>
                 </div>
-            ))}
+            )}
+            {!isStudent && (
+                <button
+                    className="btn btn-secondary"
+                    onClick={() =>
+                        navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}/edit`)
+                    }
+                >
+                    Edit Quiz
+                </button>
+            )}
         </div>
     );
 }

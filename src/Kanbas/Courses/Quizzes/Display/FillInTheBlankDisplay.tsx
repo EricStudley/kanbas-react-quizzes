@@ -11,7 +11,7 @@ interface FillInTheBlankDisplayProps {
         fillInTheBlankAnswer: string
     ) => void;
     resultMode: boolean;
-} 
+}
 
 const FillInTheBlankDisplay: React.FC<FillInTheBlankDisplayProps> = ({
     question,

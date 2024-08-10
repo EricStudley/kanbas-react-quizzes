@@ -34,6 +34,7 @@ const QuizDisplay: React.FC = () => {
         } else {
             setAnswers([]);
         }
+        
     };
 
     const setMultipleChoiceAnswerIndex = (
@@ -132,9 +133,11 @@ const QuizDisplay: React.FC = () => {
         const quizAnswers = currentUser.quizAnswers.map((quizAnswer: any) => {
             if (quizAnswer.quizId === qid) {
                 quizAnswerFound = true;
+                const attempts = quizAnswer.attempts + 1;
                 return {
                     ...quizAnswer,
                     answers,
+                    attempts,
                 };
             }
             return quizAnswer;
@@ -143,6 +146,7 @@ const QuizDisplay: React.FC = () => {
         if (!quizAnswerFound) {
             quizAnswers.push({
                 quizId: qid,
+                attempts: 1,
                 answers,
             });
         }
@@ -164,7 +168,6 @@ const QuizDisplay: React.FC = () => {
 
     return (
         <div>
-            {/* //Display the current date and time*/}
             <h6>
                 Started:{" "}
                 {new Date().toLocaleString("en-US", {
@@ -175,7 +178,6 @@ const QuizDisplay: React.FC = () => {
                     hour12: true,
                 })}
             </h6>
-
             <h3>Quiz Instructions</h3>
             <hr />
             {quiz.questions.map(

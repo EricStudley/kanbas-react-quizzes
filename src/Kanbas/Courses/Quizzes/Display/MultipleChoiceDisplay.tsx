@@ -35,10 +35,27 @@ const MultipleChoiceDisplay: React.FC<MultipleChoiceDisplayProps> = ({
                         <div key={index}>
                             <div
                                 className={`${
-                                    resultMode && isCorrect && correctMultipleChoiceText === multipleChoice.text ? "quiz-custom-border-correct p-3 rounded" : 
-                                        resultMode && isCorrect && correctMultipleChoiceText !== multipleChoice.text ? "" : 
-                                        resultMode && !isCorrect && correctMultipleChoiceText === multipleChoice.text ? "quiz-custom-border-incorrect p-3 rounded" :
-                                        resultMode && !isCorrect && correctMultipleChoiceText !== multipleChoice.text && selectedAnswer === index ? "quiz-custom-border-incorrect p-3 rounded"
+                                    resultMode &&
+                                    isCorrect &&
+                                    correctMultipleChoiceText ===
+                                        multipleChoice.text
+                                        ? "quiz-custom-border-correct p-3 rounded"
+                                        : resultMode &&
+                                          isCorrect &&
+                                          correctMultipleChoiceText !==
+                                              multipleChoice.text
+                                        ? ""
+                                        : resultMode &&
+                                          !isCorrect &&
+                                          correctMultipleChoiceText ===
+                                              multipleChoice.text
+                                        ? "quiz-custom-border-incorrect p-3 rounded"
+                                        : resultMode &&
+                                          !isCorrect &&
+                                          correctMultipleChoiceText !==
+                                              multipleChoice.text &&
+                                          selectedAnswer === index
+                                        ? "quiz-custom-border-incorrect p-3 rounded"
                                         : ""
                                 }`}
                             >
